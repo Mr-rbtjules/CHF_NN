@@ -1,0 +1,9 @@
+book:
+http://neuralnetworksanddeeplearning.com/
+
+last article (vulg)
+
+http://colah.github.io/
+
+nice graph and explanations:
+https://distill.pub/2020/bayesian-optimization/
