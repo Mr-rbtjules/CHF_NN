@@ -29,15 +29,14 @@ clipGrad = 1
 ### ###
 
 # met la LUT
-train_data = pd.read_csv('train_data.csv')  
+train_data = pd.read_csv('./sort.csv') 
 
-# split inputs et target output ! train!= training, means train tchoutchou
-X_train = train_data.iloc[:, :5].values #inputs
-y_train = train_data.iloc[:, 5].values #target outputs
+x_train = train_data.iloc[:, 1:6].values #inputs
+y_train = train_data.iloc[:, 7].values #target outputs
 
 # normalisation std
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
+x_train = scaler.fit_transform(x_train)
 
 #create the model
 model = Sequential()
@@ -74,7 +73,7 @@ learningRateScheduler = LearningRateScheduler(lr_scheduler)
 
 # on entraine en prenant que 20% pour les test
 #a partir d'ici que les weigghts sont crée 
-history = model.fit(X_train, y_train, 
+history = model.fit(x_train, y_train, 
                     validation_split=testPercent, 
                     batch_size=32, epochs=maxEpochs,
                     callbacks=[early_stop, learningRateScheduler],

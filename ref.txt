@@ -7,3 +7,12 @@ http://colah.github.io/
 
 nice graph and explanations:
 https://distill.pub/2020/bayesian-optimization/
+
+
+
+table: 
+https://www.nrc.gov/reading-rm/doc-collections/nuregs/knowledge/km0011/index.html
+
+
+PINNs:
+https://maziarraissi.github.io/PINNs/
