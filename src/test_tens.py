@@ -47,7 +47,7 @@ model = Sequential()
 for layer, neurons in enumerate(architecture):
     model.add(
         Dense(
-            neurons, 
+            units=neurons, 
             activation=relu,#(alpha=alphaActi, threshold=thresholdActi), 
             input_shape=(neurons,)
             )
@@ -87,3 +87,24 @@ history = model.fit(x_train, y_train,
 
 # resumé
 model.summary()
+
+#model.save('my_model.h5')   
+
+
+
+
+import matplotlib.pyplot as plt
+
+# Get the loss history from the model training
+training_loss = history.history['loss']
+validation_loss = history.history['val_loss']
+
+# Plot the loss curves
+epochs = range(1, len(training_loss) + 1)
+plt.plot(epochs, training_loss, 'b-', label='Training Loss')
+plt.plot(epochs, validation_loss, 'r-', label='Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
+#   
