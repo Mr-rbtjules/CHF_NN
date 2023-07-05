@@ -1,3 +1,4 @@
+
 import tensorflow as tf
 import pandas as pd
 from tensorflow.keras.models import Sequential #regroupement de layer formant le modele
@@ -42,13 +43,18 @@ x_train = scaler.fit_transform(x_train)
 model = Sequential()
 
 # Add the layers
+
 for layer, neurons in enumerate(architecture):
-    model.add(Dense(neurons, activation=relu(alpha=alphaActi, threshold=thresholdActi)))       #relu ?= 'relu' pt comme ça on peut ajouter des param a relu ?
-    # BatchNormalization + dropout regularization
+    model.add(
+        Dense(
+            neurons, 
+            activation=relu,#(alpha=alphaActi, threshold=thresholdActi), 
+            input_shape=(neurons,)
+            )
+        )
     if layer == 1 or layer == 2:
-        #add droupout to the previous layer(last one on the top)
-        model.add(Dropout(dropoutRate))  
-    if layer != 0 and layer != len(architecture) - 1: #pr tt sauf premier dernier
+        model.add(Dropout(dropoutRate))
+    if layer != 0 and layer != len(architecture) - 1:
         model.add(BatchNormalization())
 
 # tt les 32 epochs lr perd 4%
