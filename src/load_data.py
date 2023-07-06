@@ -12,7 +12,21 @@ print(x_train)
 scaler = StandardScaler()
 xstd= scaler.fit_transform(x_train)
 
+mean_value = scaler.mean_
+std_deviation = scaler.scale_
+
+
+
+new_data = x_train
+new_data = scaler.transform(new_data)
+
+
 print(xstd)
+print(new_data)
+
+
+
+
 
 def mean(l):
     m = 0
@@ -35,4 +49,9 @@ def normStd(l):
 l3 = [i[3] for i in x_train]
 print(l3)
 print(normStd(l3))
+print("mean fct", mean(l3))
+print("mean", mean_value)
 
+print("st fct", var(l3))
+
+print("st", std_deviation)
