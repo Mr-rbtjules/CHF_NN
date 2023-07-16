@@ -16,3 +16,6 @@ https://www.nrc.gov/reading-rm/doc-collections/nuregs/knowledge/km0011/index.htm
 
 PINNs:
 https://maziarraissi.github.io/PINNs/
+
+good exemple
+https://towardsdatascience.com/deep-learning-with-python-neural-networks-complete-tutorial-6b53c0b06af0
