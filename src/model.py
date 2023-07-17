@@ -2,6 +2,8 @@ import tensorflow as tf
 import pandas as pd
 from tensorflow.keras.models import Sequential #regroupement de layer formant le modele
 #dense == tensor ou layer ou ensemble de neurons d'un mm niveau 
+from tensorboard.plugins.hparams import api as hp
+
  
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, LeakyReLU, Activation #layer instance
 
@@ -53,7 +55,6 @@ def load_data(dir, seed_ss, seed_pre_shuffle):
 
     #then use the normalisation of the first set
     X_val = scaler.transform(X_val)
-
     return [X_train, X_val, y_train, y_val]
 
 
@@ -65,6 +66,7 @@ def my_std(y_val, predictions):
     return standard deviation from 1 for the 
     ration measured/predict
     """
+    
     MP = y_val/predictions
     
     std = 0
@@ -82,7 +84,7 @@ def my_nrmse(y_val,predictions):
     return nrmse
 
 
-def train_model(hparams, data): #remove data to set a class
+def train_model(hparams, logable_hparams,logdir): #remove data to set a class
 
 
     architecture = hparams['architecture']
@@ -115,10 +117,8 @@ def train_model(hparams, data): #remove data to set a class
     seed_numpy += seed_nb
     seed_ss += seed_nb
 
-
-    loss_function = hparams['loss_function']#MeanSquaredLogarithmicError()
-
-
+    #keep that way or str error , weird
+    loss_function = MeanSquaredLogarithmicError()##hparams['loss_function']#MeanSquaredLogarithmicError()#
     
     other_metrics = ['mape', batch_nrmse]
 
@@ -129,7 +129,9 @@ def train_model(hparams, data): #remove data to set a class
     batchNorm = hparams['batch_normalisation']
 
     opti = hparams['optimizer']
-
+    if opti == 'adam':
+        opti = Adam
+    else: opti = SGD
     
     actMethod = LeakyReLU(alpha=alphaActi)
 
@@ -150,7 +152,11 @@ def train_model(hparams, data): #remove data to set a class
     #python seed to be sure
     random.seed(seed_python)
 
-    X_train, X_val, y_train, y_val = data
+    X_train, X_val, y_train, y_val = load_data(
+        "../sort_data.csv", 
+        seed_ss, 
+        seed_pre_shuffle
+    )
 
     model = Sequential()
 # Add the layers
@@ -201,35 +207,46 @@ def train_model(hparams, data): #remove data to set a class
         return lr
 
     learningRateScheduler = LearningRateScheduler(lr_scheduler)
-
+    
+    tb_metrics = tf.keras.callbacks.TensorBoard(logdir),  # log metrics log_dir doit etre le mm pr tes les diff modele
+    hp_tb = hp.KerasCallback(logdir, logable_hparams)
 
     history = model.fit(X_train, y_train,
                     shuffle=False,                  #comme ça on le fait ns mm avec une seed
                     validation_data=(X_val,y_val),
                     batch_size=batchSize, epochs=maxEpochs,
-                    callbacks=[early_stop, learningRateScheduler],# tb],
+                    callbacks=[early_stop, learningRateScheduler, tb_metrics, hp_tb],
                     verbose=1) 
 
 
     predictions = np.array([i[0] for i in model.predict(X_val)])
 
+    mean_yv = np.mean(y_val)
+    if mean_yv > 0:
+        mpe = (np.mean(np.abs(y_val - predictions) / mean_yv)) * 100
+        nrmse = my_nrmse(y_val,predictions)
+    else: 
+        mpe = 1.5
+        nrmse = 1.5
 
-    mpe = (np.mean(np.abs(y_val - predictions) / np.mean(y_val))) * 100
+    if not np.any(predictions == 0):
+        mean_MP = np.mean(y_val/predictions)
+        std = my_std(y_val,predictions)
+    else: 
+        mean_MP = 1.5
+        std = 1.5
 
-
-    mean_MP = np.mean(y_val/predictions)
  
-    std = my_std(y_val,predictions)
     
-
-    nrmse = my_nrmse(y_val,predictions)
-
-    dict = {
+    """
+    final_metrics = {
         'mean_percent_error': mpe,
         'mean_MP': mean_MP,
         'std' : std,
         'nrmse' : nrmse
-    }
+    }"""
 
-    return dict
+    final_metrics = model.evaluate(X_val,y_val) #loss , mape , nrmse
+    
+    return final_metrics
     
