@@ -1,0 +1,8 @@
+last version
+original_data -> extract with tabula
+sort_data -> only what we need
+
+
+old version
+LUT.csv ->coming from web
+netLUT -> removed by hand

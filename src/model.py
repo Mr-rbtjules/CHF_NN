@@ -29,6 +29,8 @@ from datetime import datetime
 from vizu import *
 
 
+
+
 def load_data(dir, seed_ss, seed_pre_shuffle):
 
     data = pd.read_csv(dir) 
@@ -153,7 +155,7 @@ def train_model(hparams, logable_hparams,logdir): #remove data to set a class
     random.seed(seed_python)
 
     X_train, X_val, y_train, y_val = load_data(
-        "../sort_data.csv", 
+        "../csv_files/sort_data.csv", 
         seed_ss, 
         seed_pre_shuffle
     )
@@ -168,7 +170,7 @@ def train_model(hparams, logable_hparams,logdir): #remove data to set a class
         else:
             model.add(Dense(neurons))
         model.add(Activation(actMethod))
-        if  layer != len(architecture[1:]) - 1 :#and layer != len(architecture[1:]) - 2 :
+        if  layer != len(architecture[1:]) - 1 :
             if batchNorm == True:
                 model.add(BatchNormalization())
             
@@ -176,8 +178,6 @@ def train_model(hparams, logable_hparams,logdir): #remove data to set a class
             model.add(Dropout(dropoutRate))
         
         
-
-
 
     model.compile(optimizer=opti(learning_rate=learningRate), 
                 loss=loss_function, metrics=other_metrics)
@@ -196,7 +196,7 @@ def train_model(hparams, logable_hparams,logdir): #remove data to set a class
     
     early_stop = EarlyStopping(monitor=monitorParam,          #mieux de monitorer la loss car moins variable 
                            min_delta=loss_delta_stop,             #if nothing precise, it will check loss and stop after no change of >=0.1
-                           patience=25, verbose=1,
+                           patience=hparams['patience'], verbose=1,
                            restore_best_weights=True) #when stop ensure we keep best perf
 
     # tt les 32 epochs lr perd 4%

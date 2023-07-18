@@ -1,0 +1,15 @@
+-architecture correction (vizu-> png)
+-data correction using tabula
+-stratified sampling
+-no bias
+-correction of metrics M/P
+
+-different 
+
+
+next: -transfer learning
+
+
+
+-question :
+	-object code if you want to use it ?

@@ -1,0 +1,23 @@
+The architecture of this project :
+
+my_model.py -> the class handeling a defined model with defined HP
+and based on DNN for regression task CHF prediction (1 output)
+
+optimizer.py -> 1 object= 1 type of architecture we want to optimise
+
+tBwrapper -> de sorte qu'a chque nouvel appel de train_model on record les hp et resultats ds les logs pr tb
+
+tools.py -> all the small functions 
+
+config.py -> some config
+
+
+!!! make sure to pip install 
+-tabula-py
+-pandas
+-tensorflow
+-optuna
+-sklearn
+-numpy
+-matplotlib
+
