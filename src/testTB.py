@@ -105,7 +105,9 @@ my_hparams = {
     'max_epochs' : hp_max_epochs[0],
     'loss_function' : hp_loss_function[0],
     'loss_delta_stop' : hp_loss_delta_stop[0],
-    'batch_normalisation' : hp_batch_norm[0]
+    'batch_normalisation' : hp_batch_norm[0],
+    'patience': 15,
+    'loss_delta_stop' : 0.01
 }
 
 
@@ -142,10 +144,10 @@ hparams2 = {
 
 #et un autre pour train model
 
-run_dir = 'logs/hparam_tuning/' + "archi1"
+run_dir = prime_log_dir + "/archi1"
 with tf.summary.create_file_writer(run_dir).as_default():
     hp.hparams(logable_hparams)  # record the values used in this trial
-    final_metrics = m.train_model(my_hparams, logable_hparams, prime_log_dir)
+    final_metrics = m.train_model(my_hparams, prime_log_dir)
     tf.summary.scalar(
             'accuracy', 
             final_metrics[1],
@@ -160,7 +162,7 @@ with tf.summary.create_file_writer(run_dir).as_default():
 
 
 
-run_dir = 'logs/hparam_tuning/' + "archi2"
+run_dir = prime_log_dir + "/archi2"
 logable_hparams[HP_ARCHITECTURE] = 1
 my_hparams['architecture'] = hp_architecture[1]
 
@@ -169,7 +171,7 @@ my_hparams['learning_rate'] = hp_learning_rate[1]
 
 with tf.summary.create_file_writer(run_dir).as_default():
     hp.hparams(logable_hparams)  # record the values used in this trial
-    final_metrics = m.train_model(my_hparams,logable_hparams, prime_log_dir)
+    final_metrics = m.train_model(my_hparams, prime_log_dir)
     tf.summary.scalar(
             'accuracy', 
             final_metrics[1],

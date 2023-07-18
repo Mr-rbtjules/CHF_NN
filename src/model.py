@@ -86,7 +86,7 @@ def my_nrmse(y_val,predictions):
     return nrmse
 
 
-def train_model(hparams, logable_hparams,logdir): #remove data to set a class
+def train_model(hparams, logdir): #remove data to set a class
 
 
     architecture = hparams['architecture']
@@ -209,13 +209,13 @@ def train_model(hparams, logable_hparams,logdir): #remove data to set a class
     learningRateScheduler = LearningRateScheduler(lr_scheduler)
     
     tb_metrics = tf.keras.callbacks.TensorBoard(logdir),  # log metrics log_dir doit etre le mm pr tes les diff modele
-    hp_tb = hp.KerasCallback(logdir, logable_hparams)
+    #hp_tb = hp.KerasCallback(logdir, logable_hparams)
 
     history = model.fit(X_train, y_train,
                     shuffle=False,                  #comme ça on le fait ns mm avec une seed
                     validation_data=(X_val,y_val),
                     batch_size=batchSize, epochs=maxEpochs,
-                    callbacks=[early_stop, learningRateScheduler, tb_metrics, hp_tb],
+                    callbacks=[early_stop, learningRateScheduler, tb_metrics],#, hp_tb],
                     verbose=1) 
 
 
