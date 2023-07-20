@@ -28,7 +28,7 @@ from tensorflow.keras.callbacks import LearningRateScheduler, EarlyStopping, Ten
 #for the computation of custom metrics during training
 from tensorflow.keras import backend as K
 
-from tensorflow.keras.models import load_model, save_model
+from tensorflow.keras.models import load_model
 
 #to normalize input
 from sklearn.preprocessing import StandardScaler
@@ -120,6 +120,7 @@ class My_model:
         #check if the corresponding vali/train set already computed
         #set it and the other attributes
         self._load_data(self.hparams['data_seed'])
+        print("Model ready to train")
         return None
     
     def create_new_model(self)->None:
@@ -194,7 +195,7 @@ class My_model:
     def save(self, overwrite=False)->None: 
         """save model in .h5 format, to make predictions
         save also the hparams of the model"""
-
+        
         if self.name != self.now: #already existing model 
             if overwrite:
                 #no need to change name, save the model on top on the old
@@ -206,14 +207,17 @@ class My_model:
                 self.name = self.now
                 #new now to show the fact model already saved
                 self.now = datetime.now().strftime("%Y%m%d-%H%M%S")
-                self.hparams['name'] = self.name
+                
         else:
             #to mark the fact that we will have a model already saved
             
             self.now = datetime.now().strftime("%Y%m%d-%H%M%S")
-        path = "./saved_models/" + self.name + ".h5"
+
+        self.hparams['name'] = self.name
+        print("Save model ", self.name)
+        path = "./saved_models/models/" + self.name + ".h5"
         #save model.h5
-        self.model.save_model(path)
+        self.model.save(path)
         #save hparams in json
         CHF.tools.save_hparams(self.name, self.hparams)
         return None
@@ -228,8 +232,11 @@ class My_model:
         self.y_val = My_model.DATA[seed]['validation_targets']
         self.X_train = My_model.DATA[seed]['train_features']
         self.y_train = My_model.DATA[seed]['train_targets']
-        self.normalization_mean = My_model.DATA[seed]['mean']
-        self.normalization_std = My_model.DATA[seed]['std']
+        self.normalization_mean = My_model.DATA[seed]['mean'].tolist()
+        self.normalization_std = My_model.DATA[seed]['std'].tolist()
+
+        self.hparams['normalization_mean'] = self.normalization_mean
+        self.hparams['normalization_std'] = self.normalization_std
         return None
     # lr loose (1-expdecay)*100 % evry rythm epoch
     def lr_scheduler(self, epoch: int, lr: float) ->float: 
@@ -246,17 +253,11 @@ class My_model:
         save a png file containing vizual rpz of the network
         """
         dimension = (100,100)
-        print("Model visualisation")
+        print("Model visualisation ~15s")
         CHF.tools.visualize_nn(
             self.model, 
+            self.name,
             description=True, 
-            figsize=dimension)
+            figsize=dimension
+        )
         return None
-
-
-    
-
-    
-
-
-    

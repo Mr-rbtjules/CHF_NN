@@ -1,23 +1,13 @@
 -remove act method from hparams
 -test saving get hparams
-retest vizu
+
 -ajouter perf au hparams saved
--ajouter seed weight at seed_data dans les params
-
--fonction ou jsp quoi pour lier data objet classe 
-car flemme de reload csv a chaque fois et aussi 
-chasue my_model est attaché a une seed, important car 
-determine le validation set donc pas malanger pour entrainement
-differentes seed necessaire que si cross val donc laisser 
-possibli
-est ce que a un moment donner je vais vouloir tester
-diff seed pour weight et val, d'office pour weight mais
-alors juste different model mm si mm hparams, non car seed d'office
-hparam 
 
 
 
-donc comme theoriquement modele relié a un set => ajouter mean et std aux hp
+
+
+
 
 inclure les 4 types de modele
 X,L/D,P, G, DHin

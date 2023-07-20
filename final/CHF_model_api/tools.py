@@ -11,6 +11,8 @@ import json
 import os
 
 
+
+
 ###JSON hparams###
 def get_hparams_saved_model(model_name: str) -> dict:
 
@@ -170,16 +172,12 @@ def load_data(data_seed: int = 1) -> dict:
     # normalisation std  only training features
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
-
     #then use the normalisation of the first set
     X_val = scaler.transform(X_val)
-
     ##import to save bc use it when want to predict
     #array each value correspond mean of 1 features
     mean_value = scaler.mean_
     std_deviation = scaler.scale_
-
-
     data = {
         'validation_targets': y_val,
         'validation_features': X_val,
@@ -188,7 +186,7 @@ def load_data(data_seed: int = 1) -> dict:
         'mean': mean_value,
         'std': std_deviation
     }
-
+    print("Data loaded")
     return data
 
 
@@ -217,7 +215,7 @@ def utils_nn_config(model):
 '''
 Plot the structure of a keras neural network.
 '''
-def visualize_nn(model, description=False, figsize=(10,8)):
+def visualize_nn(model, name, description=False, figsize=(10,8)):
     ## get layers info
     lst_layers = utils_nn_config(model)
     layer_sizes = [layer["out"] for layer in lst_layers]
@@ -282,8 +280,23 @@ def visualize_nn(model, description=False, figsize=(10,8)):
                         ax.add_artist(line)
                 else:
                     ax.add_artist(line)
-    plt.savefig('./visuals/archi.png')
-    plt.show()
+    path = './visuals/' + name +'.png'
+    plt.savefig(path)
+    print("Vizualisation saved in visuals directory")
+    #plt.show()
     
+def remove_directory_content(directory_path):
+    for root, dirs, files in os.walk(directory_path, topdown=False):
+        for file in files:
+            file_path = os.path.join(root, file)
+            os.remove(file_path)
+        for dir_name in dirs:
+            dir_path = os.path.join(root, dir_name)
+            os.rmdir(dir_path)
+
+def reset_directories():
+    remove_directory_content("./logs")
+    remove_directory_content("./saved_models/models")
+    remove_directory_content("./saved_models/hparams")
     
 #visualize_nn(model, description=True, figsize=(100,100))

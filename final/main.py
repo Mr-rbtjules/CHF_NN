@@ -19,11 +19,13 @@ if __name__ == '__main__':
     'batch_normalisation' : True,
     'patience': 15,
     'data_seed' : 1,
-    'seed_tf': 1
+    'seed_tf': 1,
+    'normalization_mean': None,
+    'normalization_std': None
 }
-
-    my_model = CHF.My_model(hparams)
-    my_model.vizualize()
+    CHF.tools.remove_directory_content()
+    #my_model = CHF.My_model(hparams=hparams, auto_save=True)
+    #my_model.train()
 
     
 
