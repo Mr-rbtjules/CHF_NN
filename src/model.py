@@ -2,7 +2,6 @@ import tensorflow as tf
 import pandas as pd
 from tensorflow.keras.models import Sequential #regroupement de layer formant le modele
 #dense == tensor ou layer ou ensemble de neurons d'un mm niveau 
-from tensorboard.plugins.hparams import api as hp
 
  
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, LeakyReLU, Activation #layer instance
@@ -208,7 +207,7 @@ def train_model(hparams, logdir): #remove data to set a class
 
     learningRateScheduler = LearningRateScheduler(lr_scheduler)
     
-    tb_metrics = tf.keras.callbacks.TensorBoard(logdir),  # log metrics log_dir doit etre le mm pr tes les diff modele
+    tb_metrics = TensorBoard(logdir),  # log metrics log_dir doit etre le mm pr tes les diff modele
     #hp_tb = hp.KerasCallback(logdir, logable_hparams)
 
     history = model.fit(X_train, y_train,

@@ -5,6 +5,8 @@ and based on DNN for regression task CHF prediction (1 output)
 
 optimizer.py -> 1 object= 1 type of architecture we want to optimise
 
+
+
 tensorboard.py -> when create is going to construct logs in 
 the way of loading tensorboard hp comparison, regroup the hparams and create the
 logable_hparams for the models of interest (to compare) or all
@@ -14,6 +16,19 @@ is used and make the link with the future logs (name of the model)
 
 
 tools.py -> all the small functions 
+include DATA wich is a dict containing
+the different training data needed regrouped by seed
+DATA = {seed:processed_data}
+processed_data is the data ready to be directly used for the model
+processed_data is a dict with the different keys:
+'validation_targets'
+'validation_features'
+'training_features'
+'training_targets'
+'mean'
+'std'
+
+
 
 config.py -> some config
 
