@@ -29,6 +29,8 @@ from tensorflow.keras.callbacks import LearningRateScheduler, EarlyStopping, Ten
 from tensorflow.keras import backend as K
 
 from tensorflow.keras.models import load_model
+#important to link to the custom metric when loading
+from tensorflow.keras.utils import custom_object_scope
 
 #to normalize input
 from sklearn.preprocessing import StandardScaler
@@ -50,6 +52,8 @@ np.random.seed(CHF.config.SEED_NP)
 random.seed(CHF.config.SEED_RAND)
 
 
+def batch_nrmse(y_true, y_pred):
+        return K.sqrt(K.mean(K.square(y_pred - y_true)))/K.mean(y_true)
 
 
 class My_model:
@@ -87,7 +91,7 @@ class My_model:
         self.loss_function = MeanSquaredLogarithmicError()
         self.actMethod = LeakyReLU
         self.monitor_param = 'loss'
-        self.other_metrics = ['mape', self.batch_nrmse]
+        self.other_metrics = ['mape', batch_nrmse]
         
 
         #load hp and attributes
@@ -99,20 +103,23 @@ class My_model:
         use a saved one based on his name, set also all the attributes"""
         #new
         if model_name == None:
-        
+            if self.hparams == None:
+                print("Error provide hparams or name")
             self.model = Sequential()
             self.name = self.now
             print("Load new model: ", self.name)
             self.create_new_model()   
         #model already existing
         else:
-            path = "./models/" + model_name + ".h5"
+            path = "./saved_models/models/" + model_name + ".h5"
             #load model from files
-            self.model = load_model(path)
+            with custom_object_scope({'batch_nrmse': batch_nrmse}):
+                self.model = load_model(path)
             #load hparams
             self.hparams = CHF.tools.get_hparams_saved_model(model_name)
             self.name = self.hparams['name']
             print("Load saved model: ", self.name)
+            print(self.hparams)
 
         #make ready for train
         print("Model Loaded, init callbacks")
@@ -139,7 +146,6 @@ class My_model:
                 ))
             else:
                 self.model.add(Dense(neurons))
-    #a tester prc pas sur que tf kiffe
             self.model.add(Activation(
                 self.actMethod(self.hparams['alpha_acti'])
             ))
@@ -185,19 +191,42 @@ class My_model:
             callbacks=self.callbacks, #mpa_callback
             verbose=1
         )
+        self.save_results()
         #record result in hparams
         if self.auto_save:
             self.save(overwrite=True)
         return history 
-    #attention once saved we have a new model that exist ~conflict
-    #faire en sorte quapres save on fait en sorte que modele exit deja 
-    #en modifiant now
+    
+    def save_results(self) -> None:
+        """save metrics in hparams"""
+        predictions = np.array([i[0] for i in self.model.predict(self.X_val)])
+
+        mpe = (np.mean(
+            np.abs(self.y_val - predictions) / np.mean(self.y_val)
+            )) * 100
+        print("pourcentage moyen d'erreur relative final  : ", mpe)
+        mean_MP = np.mean(self.y_val/predictions)
+   
+        std_MP = CHF.tools.std_MP(self.y_val,predictions)
+        print("mean mp :", mean_MP,"std mp :", std_MP)
+
+        nrmse = CHF.tools.nrmse(self.y_val, predictions)
+        print("NRMSE:", nrmse)
+
+        self.hparams['mpe'] = mpe
+        self.hparams['mean_MP'] = mean_MP
+        self.hparams['std_MP'] = std_MP
+        self.hparams['nrmse'] = nrmse
+        return None
+
+    
     def save(self, overwrite=False)->None: 
         """save model in .h5 format, to make predictions
         save also the hparams of the model"""
         
         if self.name != self.now: #already existing model 
             if overwrite:
+                print("overwrite previous model")
                 #no need to change name, save the model on top on the old
                 #version but change hparams because performance might be diff
                 
@@ -217,7 +246,9 @@ class My_model:
         print("Save model ", self.name)
         path = "./saved_models/models/" + self.name + ".h5"
         #save model.h5
-        self.model.save(path)
+
+        with custom_object_scope({'batch_nrmse': batch_nrmse}):
+            self.model.save(path)
         #save hparams in json
         CHF.tools.save_hparams(self.name, self.hparams)
         return None
@@ -245,9 +276,6 @@ class My_model:
             return lr * self.hparams['learning_rate_decay']
         return lr
     
-    def batch_nrmse(self, y_true, y_pred):
-        return K.sqrt(K.mean(K.square(y_pred - y_true)))/K.mean(y_true)
-
     def vizualize(self) -> None:
         """
         save a png file containing vizual rpz of the network

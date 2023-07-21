@@ -284,6 +284,7 @@ def visualize_nn(model, name, description=False, figsize=(10,8)):
     plt.savefig(path)
     print("Vizualisation saved in visuals directory")
     #plt.show()
+#visualize_nn(model, description=True, figsize=(100,100))
     
 def remove_directory_content(directory_path):
     for root, dirs, files in os.walk(directory_path, topdown=False):
@@ -299,4 +300,15 @@ def reset_directories():
     remove_directory_content("./saved_models/models")
     remove_directory_content("./saved_models/hparams")
     
-#visualize_nn(model, description=True, figsize=(100,100))
+
+def nrmse(y_true,y_pred):
+    return np.sqrt(np.mean(np.square(y_pred - y_true)))/np.mean(y_true)
+
+
+def std_MP(y_val, predictions):
+    MP = y_val/predictions
+    std = 0
+    for i in MP:
+        std += (1-i)**2
+    return np.sqrt(std/len(MP))
+

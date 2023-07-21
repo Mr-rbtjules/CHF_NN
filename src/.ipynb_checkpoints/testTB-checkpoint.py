@@ -43,12 +43,11 @@ hp_loss_delta_stop = [0.001]
 HP_ARCHITECTURE = hp.HParam('architecture',
                               hp.Discrete([0,1]))
 
+
 HP_LEARNING_RATE = hp.HParam('learning_rate', 
                              hp.Discrete(hp_learning_rate))
 HP_DROPOUT_RATE = hp.HParam('drouptout_rate',
                             hp.Discrete(hp_dropout_rate))
-
-
 HP_LRDECAY_RATE = hp.HParam('lrDecay_rate', 
                             hp.Discrete(hp_lrDecay_rate))
 HP_RYTHM_RATE = hp.HParam('rythm', 
@@ -72,29 +71,6 @@ myMetrics = [hp.Metric('accuracy', display_name='Accuracy')]
 """[hp.Metric('msle', display_name='msle'), #voir diff avec et sans
              hp.Metric('mape', display_name='mape')]#,
              #hp.Metric(nrmse, display_name='nrmse')]"""
-
-
-
-
-
-
-"""
-Description de ce qui se passe au niveau des dossier
-d'abord dans logs/hparam_tuning va se trouver un tfeven qui correspond au range
-des hp, dans ce dossier on aura aussi 1 dossier par modele avec leur nonm, et aussi
-un dosser train et un dosser validation chacun contenant 2 tf event pour les logs de
-chaque modele
-
-donc on va conserver les logs dans logs/ dans des sous dossier avec leur prenom contenant eux meme
-de sous dossier train et validation avec 1 tf event chacun a l'interieur
-
-puis on va construire un hparams_tuning pour l'occasion on cree le hparams global
-qui donne un tfevent, on cree un dossier pour chaque modele compare avec le nom et
-a l'interieur un tf event avec leur hprespectif (se fait tt seul avec with tf.summary.create_file_writer(run_dir).as_default():
-    hp.hparams(logable_hparams)) puis on cree 2dossier validation et train 
-    dans lesquels on copie les logs des modeles respectif
-"""
-
 
 prime_log_dir = 'logs/hparam_tuning'
 with tf.summary.create_file_writer(prime_log_dir).as_default():
@@ -165,7 +141,8 @@ hparams2 = {
       }
 
 
-#!!! -> ressemble fortement a un wrapper
+
+#et un autre pour train model
 
 run_dir = prime_log_dir + "/archi1"
 with tf.summary.create_file_writer(run_dir).as_default():

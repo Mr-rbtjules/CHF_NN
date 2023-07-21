@@ -21,11 +21,17 @@ if __name__ == '__main__':
     'data_seed' : 1,
     'seed_tf': 1,
     'normalization_mean': None,
-    'normalization_std': None
+    'normalization_std': None,
+    'mpe': None,
+    'mean_MP': None,
+    'std_MP': None,
+    'nrmse': None
 }
-    CHF.tools.remove_directory_content()
-    #my_model = CHF.My_model(hparams=hparams, auto_save=True)
-    #my_model.train()
+    """CHF.tools.reset_directories()
+    my_model = CHF.My_model(hparams=hparams,auto_save=True)
+    my_model.train()"""
+    my_model = CHF.My_model(hparams=None, model_name="20230720-193121",auto_save=True)
+    my_model2 = CHF.My_model(hparams=hparams,auto_save=True)
 
     
 

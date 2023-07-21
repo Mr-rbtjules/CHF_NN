@@ -1,7 +1,4 @@
 -remove act method from hparams
--test saving get hparams
-
--ajouter perf au hparams saved
 
 
 

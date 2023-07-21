@@ -134,7 +134,7 @@ def objective(trial):
 
 
 
-    model = create_model(archi)
+    model = create_model(num_layers, num_units)
     performance_metric = train_and_evaluate(model, X_train, y_train, X_val, y_val)
 
     return performance_metric
