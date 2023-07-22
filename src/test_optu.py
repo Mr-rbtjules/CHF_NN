@@ -132,7 +132,16 @@ def objective(trial):
         archi.append(1)
 
 
+    #trial.suggest_uniform(“dropout_rate”, 0, 1)
+    #trial.suggest_loguniform('learning_rate', 1e-5, 1000)
+    #trial.suggest_categorical(‘optimizer’, [‘SGD’, ‘Adam’])
 
+    #trial.report(accuracy) ?
+    #can minimise several metrics by combili
+    #study.optimize(objective, n_trials=100, n_jobs=5) for parralel ?
+    #maybe train prune train prune 
+    #persistent storage backend like SQLite,
+    #multiprocessing.array
 
     model = create_model(archi)
     performance_metric = train_and_evaluate(model, X_train, y_train, X_val, y_val)

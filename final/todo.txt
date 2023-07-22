@@ -1,7 +1,9 @@
--remove act method from hparams
-
-
-
+-prompt to reset directo
+-peut etre pas init callbacks and data if not train
+-test my_tensorboard
+-add other metrics
+-peut etre copier automatiquement la data dans l'object si train parrallel
+_add a multiprocess lock to DATA in My_model class
 
 
 

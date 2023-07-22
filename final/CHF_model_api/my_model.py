@@ -176,11 +176,15 @@ class My_model:
         )
         #schedule == function to give to LearningScheduler, with epoch and lr as param
         learningRateScheduler = LearningRateScheduler(self.lr_scheduler)
-        logdir = "./logs/hparam_tuning/" + self.name
+        logdir = "./logs/" + self.name
         tb_metrics = TensorBoard(logdir)
-        return [early_stop, learningRateScheduler, tb_metrics]
+        return [early_stop, learningRateScheduler, tb_metrics]#tb tjrs en dernier
 
-    def train(self) -> dict:
+    def train(self, logs=True) -> dict:
+        
+        call = self.callbacks
+        if not logs:
+            call = call[:-1]
         history = self.model.fit(
             self.X_train, 
             self.y_train,
@@ -188,7 +192,7 @@ class My_model:
             validation_data=(self.X_val,self.y_val),
             batch_size=self.hparams['batch_size'], 
             epochs=self.hparams['max_epochs'],
-            callbacks=self.callbacks, #mpa_callback
+            callbacks=call, #mpa_callback
             verbose=1
         )
         self.save_results()
@@ -252,7 +256,13 @@ class My_model:
         #save hparams in json
         CHF.tools.save_hparams(self.name, self.hparams)
         return None
-    
+
+    def remove_backups(self) -> None:
+        
+        return None
+
+
+
     def _load_data(self, seed: int) -> None:
         """check if corresponding valid/train set already computed,
         if no compute and add the new data in DATA"""

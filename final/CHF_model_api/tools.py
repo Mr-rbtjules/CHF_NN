@@ -295,10 +295,18 @@ def remove_directory_content(directory_path):
             dir_path = os.path.join(root, dir_name)
             os.rmdir(dir_path)
 
+def remove_backups(name):
+    model_path = f'./saved_models/models/{name}.h5'
+    hparams_path = f'./saved_models/hparams/{name}.json'
+    os.remove(model_path)
+    os.remove(hparams_path)
+    return None
+
 def reset_directories():
     remove_directory_content("./logs")
     remove_directory_content("./saved_models/models")
     remove_directory_content("./saved_models/hparams")
+    remove_directory_content("./hparams_tuning_tb")
     
 
 def nrmse(y_true,y_pred):
