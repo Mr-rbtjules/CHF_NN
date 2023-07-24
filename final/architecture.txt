@@ -42,3 +42,4 @@ config.py -> some config
 -numpy
 -matplotlib
 
+-mysql-server

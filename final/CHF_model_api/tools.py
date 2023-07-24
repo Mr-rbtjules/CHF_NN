@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import tabula as tb
 from sklearn.preprocessing import StandardScaler
+import mysql.connector
 
 from CHF_model_api.config import TEST_DATA_PROPORTION
 
@@ -186,7 +187,7 @@ def load_data(data_seed: int = 1) -> dict:
         'mean': mean_value,
         'std': std_deviation
     }
-    print("Data loaded")
+    print(f"Data loaded seed: {data_seed}")
     return data
 
 
@@ -310,13 +311,30 @@ def reset_directories():
     
 
 def nrmse(y_true,y_pred):
-    return np.sqrt(np.mean(np.square(y_pred - y_true)))/np.mean(y_true)
+    res = None
+    if np.mean(y_true) != 0:
+        res = np.sqrt(np.mean(np.square(y_pred - y_true)))/np.mean(y_true)
+    else:
+        res = None
+    return res
 
 
 def std_MP(y_val, predictions):
-    MP = y_val/predictions
-    std = 0
-    for i in MP:
-        std += (1-i)**2
-    return np.sqrt(std/len(MP))
+    res = None
+    if predictions.all() != 0:
+        MP = y_val/predictions
+        std = 0
+        for i in MP:
+            std += (1-i)**2
+        res = np.sqrt(std/len(MP))
+    else:
+        res = None
+    return res
+
+
+def create_sql_database(db_name) -> bool:
+
+
+    return True
+    
 

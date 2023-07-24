@@ -67,6 +67,7 @@ class My_model:
             self, 
             hparams:    dict = None,
             model_name:   str = None,
+            process_number: int = None,#option to not share same resource
             auto_save: bool = False
     ) ->None:
         """
@@ -92,6 +93,7 @@ class My_model:
         self.actMethod = LeakyReLU
         self.monitor_param = 'loss'
         self.other_metrics = ['mape', batch_nrmse]
+        self.process_number = process_number
         
 
         #load hp and attributes
@@ -180,21 +182,27 @@ class My_model:
         tb_metrics = TensorBoard(logdir)
         return [early_stop, learningRateScheduler, tb_metrics]#tb tjrs en dernier
 
-    def train(self, logs=True) -> dict:
+    def train(self, logs=True, callbacks=True, train_epochs=None) -> dict:
         
         call = self.callbacks
         if not logs:
             call = call[:-1]
+        if not callbacks:
+            call = None
+        if not train_epochs:
+            train_epochs = self.hparams['max_epochs']
+        print("Start training")
         history = self.model.fit(
             self.X_train, 
             self.y_train,
             shuffle=False,      #because already shuffled
             validation_data=(self.X_val,self.y_val),
             batch_size=self.hparams['batch_size'], 
-            epochs=self.hparams['max_epochs'],
+            epochs=train_epochs,
             callbacks=call, #mpa_callback
             verbose=1
         )
+        print("finished training save results")
         self.save_results()
         #record result in hparams
         if self.auto_save:
@@ -205,12 +213,19 @@ class My_model:
         """save metrics in hparams"""
         predictions = np.array([i[0] for i in self.model.predict(self.X_val)])
 
-        mpe = (np.mean(
-            np.abs(self.y_val - predictions) / np.mean(self.y_val)
-            )) * 100
+        mean_val = np.mean(self.y_val)
+        if mean_val != 0:
+            mpe = (np.mean(
+                np.abs(self.y_val - predictions) / np.mean(self.y_val)
+                )) * 100
+        else:
+            mpe = 100
+
         print("pourcentage moyen d'erreur relative final  : ", mpe)
-        mean_MP = np.mean(self.y_val/predictions)
-   
+        if predictions.all() != 0:
+            mean_MP = np.mean(self.y_val/predictions)
+        else: 
+            mean_MP = 'inf'
         std_MP = CHF.tools.std_MP(self.y_val,predictions)
         print("mean mp :", mean_MP,"std mp :", std_MP)
 
@@ -258,16 +273,26 @@ class My_model:
         return None
 
     def remove_backups(self) -> None:
-        
+
         return None
 
 
 
+#ca va pas marcher aha prc on risque de load en meme temps
     def _load_data(self, seed: int) -> None:
         """check if corresponding valid/train set already computed,
         if no compute and add the new data in DATA"""
         if seed not in My_model.DATA.keys():
+            #check if enough for concurrency
+            My_model.DATA[seed] = '' #te set a value to show that this set is taken
             My_model.DATA[seed] = CHF.tools.load_data(seed)
+
+        ##optimize several process part
+        if self.process_number != None:
+            key = f'copy {seed} {self.process_number}'
+            if key not in My_model.DATA.keys():
+                print("error no copy _load_data prblm")
+            seed = key #=>process need to use copy
             
         self.X_val = My_model.DATA[seed]['validation_features']
         self.y_val = My_model.DATA[seed]['validation_targets']
@@ -278,8 +303,12 @@ class My_model:
 
         self.hparams['normalization_mean'] = self.normalization_mean
         self.hparams['normalization_std'] = self.normalization_std
+
         return None
-    # lr loose (1-expdecay)*100 % evry rythm epoch
+    
+   
+
+     # lr loose (1-expdecay)*100 % evry rythm epoch
     def lr_scheduler(self, epoch: int, lr: float) ->float: 
 
         if epoch % self.hparams['rythm'] == 0 and epoch > 0:
@@ -299,3 +328,37 @@ class My_model:
             figsize=dimension
         )
         return None
+    
+    #2 things set up in the class for process, here and in _load_data
+    @classmethod
+    def make_data_copies(cls, jobs, seed):#must not be called in this class
+        #check first if origin exist    
+        if seed not in cls.DATA.keys():
+            cls.DATA[seed] = '' #te set a value to show that this set is taken
+            cls.DATA[seed] = CHF.tools.load_data(seed)
+        #we ensure we have 5 copies
+        for i in range(jobs):
+            key = f'copy {seed} {i}'
+            if key not in cls.DATA.keys(): #add new key for new copy
+                #copy from the origin
+                cls.DATA[key] = {}
+                cls.DATA[key]['validation_features'] = np.copy(
+                    cls.DATA[seed]['validation_features']
+                )
+                cls.DATA[key]['validation_targets'] = np.copy(
+                    cls.DATA[seed]['validation_targets']
+                )
+                cls.DATA[key]['train_features'] = np.copy(
+                    cls.DATA[seed]['train_features']
+                )
+                cls.DATA[key]['train_targets'] = np.copy(
+                    cls.DATA[seed]['train_targets']
+                )
+                cls.DATA[key]['mean'] = np.copy(
+                    cls.DATA[seed]['mean']
+                )
+                cls.DATA[key]['std'] = np.copy(
+                    cls.DATA[seed]['std']
+                )
+            print(f"add copy of seed :{seed} nb {i} to DATA")
+            
