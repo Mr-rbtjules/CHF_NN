@@ -30,7 +30,7 @@ from typing import List
 import CHF_model_api as CHF
 
 
-class My_tensorboard:
+class MyTensorboard:
 
     def __init__(
             self,
@@ -133,12 +133,12 @@ class My_tensorboard:
         os.makedirs(self.session_path + '/validation')
         return None
 
-    def init_models(self)-> List[CHF.My_model]:
+    def init_models(self)-> List[CHF.MyModel]:
         """get the saved models by creating object my_models
         based on the name of the saved models"""
         models = []
         for name in self.models_name:
-            models.append(CHF.My_model(model_name=name))
+            models.append(CHF.MyModel(model_name=name))
         return models
     
     def add_saved_model(self, model_name: str) -> None:
