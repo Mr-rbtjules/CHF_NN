@@ -1,0 +1,15 @@
+Trial 1 finished with value: 0.01508416843827595 and parameters:
+ {'dropout_rate': 0.3348589818400747, 'learning_rate': 0.003420540282034936}
+. Best is trial 1 with value: 0.01508416843827595.
+
+
+Best Parameters: {'dropout_rate': 0.12529810904148678, 'layer1_neurons': 46, 'layer2_neurons': 26, 'layer3_neurons': 27, 'layer4_neurons': 39, 'layer5_neurons': 46, 'layer6_neurons': 28, 'layer7_neurons': 32, 'learning_rate': 0.014820099371689217, 'num_layers': 7}
+Best value: 0.04115516528291342
+
+
+Best Parameters: {'dropout_rate': 0.10991626051062528, 'layer1_neurons': 50, 'layer2_neurons': 49, 'layer3_neurons': 39, 'layer4_neurons': 42, 'layer5_neurons': 35, 'layer6_neurons': 40, 'learning_rate': 0.01302722680968669, 'num_layers': 6}
+Best value: 0.040620724632866034 #all4 var
+
+
+Best Parameters: {'dropout_rate': 0.21147250633627634, 'first_layer_neurons': 8, 'layer2_neurons': 45, 'layer3_neurons': 50, 'layer4_neurons': 50, 'layer5_neurons': 50, 'learning_rate': 0.013942936218414586, 'num_layers': 5}
+Best value: 0.04033296747455667

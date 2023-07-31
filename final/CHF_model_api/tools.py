@@ -90,6 +90,7 @@ def extractFromPdf(path) -> pd.DataFrame:
     sort['Tin'] = sort['Tin'] + 273.15
 
     #keep physical values
+    sort = sort.loc[sort['CHF'] > 0]
     sort = sort.loc[sort['Xchf'] < 1 ]
     sort = sort.loc[(sort['P'] <= 21000000) &  (sort['P'] >= 100000)]
     sort = sort.loc[(sort['D'] < 0.025) &  (sort['D'] > 0.003) ]
@@ -121,10 +122,8 @@ def loadData(data_seed: int = 1, input_number: int = 5) -> dict:
     # Stratified Sampling 
 
     if REMOVE_NEG_DHIN:
-        print(data)
+        print("Remove negative DHIN")
         data = data.loc[(data['DHin'] > 0)]
-        print(data)
-        exit(0)
     validation_data = data.groupby('CHF').apply(
         lambda x: x.sample(frac=TEST_DATA_PROPORTION, random_state=data_seed)
     ).droplevel(0).sample(frac=1, random_state=(data_seed+10)) #+10 jut to be different than seed_ss

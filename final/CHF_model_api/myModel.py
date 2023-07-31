@@ -71,8 +71,8 @@ class MyModel:
         #to auto save after training
         self.auto_save = auto_save
         self.hparams = hparams
-        self.input_number = 5 #default value
         self.name = None
+        self.input_number = None
         #validation data input (or features)
         self.X_val = None
         #validation data output (or targets)
@@ -123,6 +123,7 @@ class MyModel:
             callbacks=call, #mpa_callback
             verbose=self.hparams['verbose']
         )
+        self.hparams['trained_epochs'] += train_epochs
         self._saveResults()
         #record result in hparams
         if self.auto_save:
@@ -146,16 +147,20 @@ class MyModel:
                 self.now = datetime.now().strftime("%Y%m%d-%H%M%S")  
         else:
             #to mark the fact that we will have a model already saved
+    
             self.now = datetime.now().strftime("%Y%m%d-%H%M%S")
-
+        #if during optimisation to distinguish
+        name = self.name
+        if self.process_number:
+            name = 'opti' + self.name
         self.hparams['name'] = self.name
         print("Save model ", self.name)
-        path = f"./saved_models/models/{self.name}.h5"
+        path = f"./saved_models/models/{name}.h5"
         #save model.h5 (always with special metric or bug)
         with custom_object_scope({'batch_nrmse': batch_nrmse}):
             self.model.save(path)
         #save hparams in json
-        CHF.tools.saveHparams(self.name, self.hparams)
+        CHF.tools.saveHparams(name, self.hparams)
         return None
 
     def make_real_predictions(self, features_data: list) -> list:
@@ -211,13 +216,15 @@ class MyModel:
 
         seed = self.hparams['data_seed']
         #only work with a same given of input
-        MyModel.DATA[seed] = CHF.tools.loadData(seed, self.input_number)
+        if not self.process_number:
+            if seed not in MyModel.DATA:
+                MyModel.DATA[seed] = CHF.tools.loadData(seed, self.input_number)
         #make ready for train
         print("Model Loaded, init callbacks")
         self.callbacks = self._init_callbacks()
         #check if the corresponding vali/train set already computed
         #set it and the other attributes
-        self._loadData(self.hparams['data_seed'])
+        self._loadData()
         print("Model ready to train")
         return None
     
@@ -311,6 +318,7 @@ class MyModel:
         msle = CHF.tools.myMsle(self.y_val, predictions)
         print('msle : ', msle)
 
+        self.hparams['mape'] = mape
         self.hparams['msle'] = msle
         self.hparams['mpe'] = mpe
         self.hparams['mean_MP'] = mean_MP
@@ -318,27 +326,29 @@ class MyModel:
         self.hparams['nrmse'] = nrmse
         return None
 
-    def _loadData(self, seed: int) -> None:
+    def _loadData(self) -> None:
         """check if corresponding valid/train set already computed,
         if no compute and add the new data in DATA"""
-        if seed not in MyModel.DATA.keys():
-            #check if enough for concurrency
-            MyModel.DATA[seed] = '' #te set a value to show that this set is taken
-            MyModel.DATA[seed] = CHF.tools.loadData(seed, self.input_number)
+        seed = self.hparams['data_seed']
+        if self.process_number == None:
+            key = f"input_number {self.input_number} seed {seed}"
+            if key not in MyModel.DATA.keys():
+                MyModel.DATA[key] = '' #te set a value to show that this set is taken
+                MyModel.DATA[key] = CHF.tools.loadData(seed, self.input_number)
 
         ##optimize several process part
-        if self.process_number != None:
-            key = f'copy {seed} {self.process_number}'
+        else:
+            key = f'copy {self.process_number} input_number ' \
+                    f'{self.input_number} seed {seed}'
             if key not in MyModel.DATA.keys():
-                print("error no copy _load_data prblm")
-            seed = key #=>process need to use copy
-            
-        self.X_val = MyModel.DATA[seed]['validation_features']
-        self.y_val = MyModel.DATA[seed]['validation_targets']
-        self.X_train = MyModel.DATA[seed]['train_features']
-        self.y_train = MyModel.DATA[seed]['train_targets']
-        self.normalization_mean = MyModel.DATA[seed]['mean'].tolist()
-        self.normalization_std = MyModel.DATA[seed]['std'].tolist()
+                Exception("error no copy _load_data prblm")
+
+        self.X_val = MyModel.DATA[key]['validation_features']
+        self.y_val = MyModel.DATA[key]['validation_targets']
+        self.X_train = MyModel.DATA[key]['train_features']
+        self.y_train = MyModel.DATA[key]['train_targets']
+        self.normalization_mean = MyModel.DATA[key]['mean'].tolist()
+        self.normalization_std = MyModel.DATA[key]['std'].tolist()
 
         self.hparams['normalization_mean'] = self.normalization_mean
         self.hparams['normalization_std'] = self.normalization_std
@@ -357,33 +367,34 @@ class MyModel:
     #2 things set up in the class for process, here and in _load_data
     @classmethod
     def makeDataCopies(cls, jobs, seed, input_number):#must not be called in this class
-        #check first if origin exist    
-        if seed not in cls.DATA.keys():
-            cls.DATA[seed] = '' #te set a value to show that this set is taken
-            cls.DATA[seed] = CHF.tools.loadData(seed, input_number)
+        #check first if origin exist   
+        key1 = f"input_number {input_number} seed {seed}"
+        if key1 not in cls.DATA.keys():
+            cls.DATA[key1] = '' #te set a value to show that this set is taken
+            cls.DATA[key1] = CHF.tools.loadData(seed, input_number)
         #we ensure we have 5 copies
         for i in range(jobs):
-            key = f'copy {seed} {i}'
-            if key not in cls.DATA.keys(): #add new key for new copy
+            key2 = f"copy {i} input_number {input_number} seed {seed}"
+            if key2 not in cls.DATA.keys(): #add new key for new copy
                 #copy from the origin
-                cls.DATA[key] = {}
-                cls.DATA[key]['validation_features'] = np.copy(
-                    cls.DATA[seed]['validation_features']
+                cls.DATA[key2] = {}
+                cls.DATA[key2]['validation_features'] = np.copy(
+                    cls.DATA[key1]['validation_features']
                 )
-                cls.DATA[key]['validation_targets'] = np.copy(
-                    cls.DATA[seed]['validation_targets']
+                cls.DATA[key2]['validation_targets'] = np.copy(
+                    cls.DATA[key1]['validation_targets']
                 )
-                cls.DATA[key]['train_features'] = np.copy(
-                    cls.DATA[seed]['train_features']
+                cls.DATA[key2]['train_features'] = np.copy(
+                    cls.DATA[key1]['train_features']
                 )
-                cls.DATA[key]['train_targets'] = np.copy(
-                    cls.DATA[seed]['train_targets']
+                cls.DATA[key2]['train_targets'] = np.copy(
+                    cls.DATA[key1]['train_targets']
                 )
-                cls.DATA[key]['mean'] = np.copy(
-                    cls.DATA[seed]['mean']
+                cls.DATA[key2]['mean'] = np.copy(
+                    cls.DATA[key1]['mean']
                 )
-                cls.DATA[key]['std'] = np.copy(
-                    cls.DATA[seed]['std']
+                cls.DATA[key2]['std'] = np.copy(
+                    cls.DATA[key1]['std']
                 )
-            print(f"add copy of seed :{seed} nb {i} to DATA")
+            print(f"add {key2} to DATA")
             

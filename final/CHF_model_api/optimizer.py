@@ -13,17 +13,19 @@ class MyOptimizer:
 
     def __init__(
             self,
-            generic_hparams:    dict,
-            opti_architecture:  bool = True,
-            opti_dropout:       bool = False,
-            opti_learning_rate: bool = False,
-            opti_optimizer:     bool=False,
-            type:               int = 1,
-            jobs:               int = 2,
-            trials:             int = 5,
-            db_name:            str = None,
-            metric:             str = 'mpe',
-            input_number:       int = 5
+            generic_hparams:        dict,
+            opti_architecture:      bool = True,
+            opti_dropout:           bool = False,
+            opti_learning_rate:     bool = False,
+            opti_lr_decrease:       bool = False,
+            opti_optimizer:         bool = False,
+            opti_activation_method: bool = False,
+            type:                   int = 1,
+            jobs:                   int = 2,
+            trials:                 int = 5,
+            db_name:                str = None,
+            metric:                 str = 'mpe',
+            verbose:                int = 0
     ) -> None:
         """This class create an optimizer for hyperparameter
         of deep neural network to predict CHF using 
@@ -35,6 +37,8 @@ class MyOptimizer:
         self.opti_dropout = opti_dropout
         self.opti_learning_rate = opti_learning_rate
         self.opti_optimizer = opti_optimizer
+        self.opt_lr_decrease = opti_lr_decrease
+        self.opti_activation_method = opti_activation_method
         #if no database create one
         if not db_name: 
             self.db_name = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -47,11 +51,14 @@ class MyOptimizer:
         self.trials = trials
         self.seed = 1
         #range of guess
-        self.dropout_range = [0.2,0.4]
-        self.learning_range = [0.0008, 0.005]
-        self.MIN_LAYER = 1
-        self.MAX_LAYER = 10
-        self.MIN_NEURONS = 32 #not absolute minimum
+        self.dropout_range = [0.28,0.36]
+        self.learning_range = [0.002, 0.004]
+        self.rythm_range = [1,30]
+        self.lr_decrease_range = [0.75, 0.99]
+        self.alpha_activation_range = [-0.4, 0]
+        self.MIN_LAYER = 4
+        self.MAX_LAYER = 8
+        self.MIN_NEURONS = 15 #not absolute minimum
         self.MAX_NEURONS = 50
         #type of architecture
         self.type = type
@@ -63,9 +70,10 @@ class MyOptimizer:
         #to have access to the attributes
         self.lock_attributes = multiprocessing.Lock()
 
-        self.input_nb = input_number
+        self.input_nb = generic_hparams['input_number']
         self.output_nb = 1
         self.generic_hparams = generic_hparams
+        self.verbose = verbose
         #initialise the different copies needed (one for each job/process)
         CHF.MyModel.makeDataCopies(self.jobs,self.seed, self.input_nb)
 
@@ -173,8 +181,15 @@ class MyOptimizer:
         epoch = 0
         while epoch < epochs:
             model.train(logs=False, callbacks=False, train_epochs=steps)
-            metric = model.hparams['mpe']#*0.5 +  model.hparams['nrmse']*0.5 
+            metric = model.hparams[model.hparams['metric_name']]#*0.5 +  model.hparams['nrmse']*0.5 
             
+            
+            if model.hparams['mape'] < 10 or model.hparams['msle'] < 0.018:
+                if model.name == model.now:#encore jamais save
+                    print("\n\n\n save model good results\n\n\n")
+                    model.save()
+                    #mais on continue prc donne pt etre des bonnes indics
+
             trial.report(metric, step=epoch)
             print(f"{model.name} finished training step "\
                   f"{(epoch//model.hparams['steps'])+1}/"\
@@ -185,7 +200,7 @@ class MyOptimizer:
                 print("\n\nPRUNED\n\n")
                 epoch = epochs
 
-    def _make_archi_type(self, trial, type) -> list:
+    def _make_archi_type(self, trial, type, opti_hparams) -> list:
         archi = None
         if type == 1:
             archi = self._make_decreased_archi(trial)
@@ -193,8 +208,27 @@ class MyOptimizer:
             archi = self._make_increased_archi(trial)
         elif type == 3:
             archi = self._make_random_archi(trial)
+
+        elif type == 4:
+            archi = self._make_around_archi(trial, opti_hparams)
         return archi
     
+    def _make_around_archi(self, trial, opti_hparams):
+        archi = opti_hparams['architecture']
+        #make a guess for the nb og layers in the nn
+        num_layers = len(archi)
+        for i in range(1,num_layers-1):
+            num_neurons = trial.suggest_int(
+                "layer{}_neurons".format(i+1), 
+                (archi[i] -5), 
+                (archi[i] + 5), 
+                log=False
+            )
+            archi[i] = num_neurons            
+        archi.append(1)
+        return archi
+        
+
     def _opti_hparams_safe(self, trial)-> dict:
         """Return safely the guess optimized of ,
         the hparameters and the epochs number
@@ -206,13 +240,14 @@ class MyOptimizer:
         with self.lock_attributes: #gain access to the attributes of the class optimizer (all the configs)
             print("get attribute access")
             opti_hparams = copy.copy(self.generic_hparams)
-            opti_hparams['metric_name'] = self.metric_name
-            #opti_hparams['max_epochs'] = self.epochs
+            
+            
                 ##archi guess###
             if self.opti_archirecture:
                 opti_hparams['architecture'] = self._make_archi_type(
                     trial, 
-                    self.type
+                    self.type,
+                    opti_hparams
                 )
             if self.opti_dropout:
                 dropout_rate = trial.suggest_float(
@@ -226,7 +261,7 @@ class MyOptimizer:
                     "learning_rate",
                     self.learning_range[0], 
                     self.learning_range[1],
-                    log=True
+                    log=False
                 )
                 opti_hparams['learning_rate'] = learning_rate
             if self.opti_optimizer:
@@ -234,9 +269,28 @@ class MyOptimizer:
                     'optimizer', 
                     ['SGD', 'adam']
                 )
+            if self.opt_lr_decrease:
+                opti_hparams['learning_rate_decay'] = trial.suggest_int(
+                    'learning_rate_decay',
+                    self.lr_decrease_range[0], 
+                    self.lr_decrease_range[1]
+                )
+                opti_hparams['rythm'] = trial.suggest_int(
+                    'rythm',
+                    self.rythm_range[0], 
+                    self.rythm_range[1]
+                )
+            if self.opti_activation_method:
+                alpha_activation = trial.suggest_float(
+                    "alpha_activation",
+                    self.alpha_activation_range[0], 
+                    self.alpha_activation_range[1],
+                    log=False
+                )
+                opti_hparams['alpha_acti'] = alpha_activation
 
         if self.jobs > 1:
-            opti_hparams['verbose'] = 0
+            opti_hparams['verbose'] = self.verbose
         else: opti_hparams['verbose'] = 1
         #set optimized hparams    
         #relase the lock of attribute 
@@ -322,9 +376,7 @@ class MyOptimizer:
                 self.MAX_NEURONS, 
                 log=False
             )
-            archi.append(num_neurons)
-            first_layer_neurons = num_neurons
-            
+            archi.append(num_neurons)            
         archi.append(1)
         return archi
 

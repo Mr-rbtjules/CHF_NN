@@ -4,17 +4,17 @@ if __name__ == '__main__':
 
     ###TEST 1###
     hparams = {
-    'input_number': 5,
+    'input_number': 4,
     'name': None,
-    'architecture':[5,61,51,28,39,26,21,20,14,1],
-    'learning_rate': 0.01,
-    'dropout_rate' :  0.25401106288895464,
+    'architecture':[4, 61, 51, 28, 39, 26, 21,20, 14, 1],
+    'learning_rate': 0.005,
+    'dropout_rate' :  0.23,
     'learning_rate_decay' : 0.96,
     'rythm' : 32,
     'alpha_acti' : 0,
     'batch_size' : 32,
     'optimizer' : 'adam',
-    'max_epochs' : 2,
+    'max_epochs' : 100,
     'loss_function' : 'msle',
     'loss_delta_stop' : 0.001,
     'batch_normalisation' : True,
@@ -28,35 +28,48 @@ if __name__ == '__main__':
     'mean_MP': None,
     'std_MP': None,
     'nrmse': None,
+    'trained_epochs': 0,
     'verbose': 1,
     'metric_name': None
     }
-
     
-    my_model = CHF.MyModel(hparams=hparams,model_name = '20230725-154946',auto_save=True)
-    my_model.hparams['max_epochs'] = 1
-    my_model._saveResults()
+    #ajouter nb epoch entrainement totale aux hp
+    """my_model = CHF.MyModel(hparams=hparams,model_name = None,auto_save=True)
+    my_model.hparams['max_epochs'] = 200
+    my_model.train()"""
+    #my_model.train()
+    
+    """my_model = CHF.MyModel(hparams=hparams,model_name = None,auto_save=True)
+    my_model.hparams['max_epochs'] = 700
 
+    my_model.train()"""
 
     ###TEST2###
-    
+    """
+    Trial 1 finished with value: 0.01508416843827595 and>
+ {'dropout_rate': 0.3348589818400747, 'learning_rate>
+. Best is trial 1 with value: 0.01508416843827595.
+
+
+    """
 
     #without the param we going to tune
     #for now only architecture
     generic_hparams = {
+            'input_number': 4,
             'name': None,
-            'architecture':[5,61,51,28,39,26,21,20,14,1],
+            'architecture':[4,61,51,28,39,26,21,20,14,1],
             'learning_rate': 0.001,
             'dropout_rate' : 0.2,
             'learning_rate_decay' : 0.96,
-            'rythm' : 15,
+            'rythm' : 1000,
             'alpha_acti' : 0,
             'batch_size' : 32,
             'optimizer' : 'adam',
-            'max_epochs' : 105,
+            'max_epochs' : 200,
             'steps': 15,
             'loss_function' : 'msle',
-            'loss_delta_stop' : 0.01,
+            'loss_delta_stop' : 0.001,
             'batch_normalisation' : True,
             'patience': 15,
             'data_seed' : 1,
@@ -68,25 +81,28 @@ if __name__ == '__main__':
             'mean_MP': None,
             'std_MP': None,
             'nrmse': None,
+            'trained_epochs': 0,
             'verbose': 1,
-            'metric_name': None
+            'metric_name': 'msle'
     }
 
 
-    #
-    """my_opti = CHF.MyOptimizer(
+    
+    my_opti = CHF.MyOptimizer(
         generic_hparams=generic_hparams,
         jobs=4,
-        trials=10,
-        db_name='opti_dp_lr',
-        type=2,
-        opti_architecture=False,
+        trials=100,
+        db_name='arch_around',
+        type=4,
+        opti_architecture=True,
         opti_dropout=True,
         opti_learning_rate=True,
-        metric='msle'
+        metric='msle',
+        verbose=0
     )
     my_opti.optimize_my_models()
-"""
+
+
 
 
     """
@@ -101,15 +117,16 @@ if __name__ == '__main__':
 
     hparams = {
     'name': None,
-    'architecture':[5, 61, 51, 28, 39, 26, 21,20, 14, 1],
-    'learning_rate': 0.01,
-    'dropout_rate' : 0.1,
+    'input_number': 5,
+    'architecture':[5, 43, 45, 48, 49, 46, 41,40,39, 36,44, 1],
+    'learning_rate': 0.001633,
+    'dropout_rate' : 0.243,
     'learning_rate_decay' : 0.96,
     'rythm' : 15,
     'alpha_acti' : 0,
     'batch_size' : 32,
     'optimizer' : 'adam',
-    'max_epochs' : 2,
+    'max_epochs' : 347,
     'loss_function' : 'msle',
     'loss_delta_stop' : 0.01,                                   
     'batch_normalisation' : True,
@@ -118,17 +135,21 @@ if __name__ == '__main__':
     'seed_tf': 1,
     'normalization_mean': None,
     'normalization_std': None,
-    'mpe': None,
+    'mpe': 20,
     'mean_MP': None,
     'std_MP': None,
     'nrmse': None,
-    'verbose': 1
+    'trained_epochs': 0,
+    'verbose': 0
     }
+
+    
+
     hparams2 = {
     'name': None,
     'architecture':[5, 61, 51, 28, 39, 26, 21,20, 14, 1],
-    'learning_rate': 0.001,
-    'dropout_rate' : 0.1,
+    'learning_rate': 0.00342,
+    'dropout_rate' : 0.33485,
     'learning_rate_decay' : 0.96,
     'rythm' : 15,
     'alpha_acti' : 0,
@@ -147,8 +168,15 @@ if __name__ == '__main__':
     'mean_MP': None,
     'std_MP': None,
     'nrmse': None,
+    'trained_epochs': 0,
     'verbose': 1
     }
+
+    """my_model = CHF.MyModel(hparams=hparams,model_name = None,auto_save=False)
+    my_model.hparams['max_epochs'] = 150
+
+    my_model.train()
+    my_model.save(overwrite=False)"""
 
     """my_model = CHF.MyModel(hparams=hparams,auto_save=True)
     my_model.train()

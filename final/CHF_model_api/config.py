@@ -1,5 +1,5 @@
 
-REMOVE_NEG_DHIN = False
+REMOVE_NEG_DHIN = True
 
 SEED_NP = 4
 SEED_RAND = 5
