@@ -163,16 +163,17 @@ class MyModel:
         CHF.tools.saveHparams(name, self.hparams)
         return None
 
-    def make_real_predictions(self, features_data: list) -> list:
+    def makeRealPredictions(self, features_data: list) -> list:
+        """"""
         scaler = StandardScaler()
         scaler.mean_ = self.normalization_mean
         scaler.scale_ = self.normalization_std
         normalized_data = scaler.transform(features_data)
         predictions = np.array([i[0] for i in self.model.predict(normalized_data)])
-
+        print("Prediction of the CHF: ",predictions)
         return predictions
         
-    def plotResult(self):
+    def plotResult(self) -> None:
         predictions = np.array([i[0] for i in self.model.predict(self.X_val)])
         CHF.tools.plotResults(predictions, self.y_val, save_fig=True)
 
@@ -214,11 +215,7 @@ class MyModel:
             self.input_number = self.hparams['input_number']
             print("Load saved model: ", self.name)
 
-        seed = self.hparams['data_seed']
-        #only work with a same given of input
-        if not self.process_number:
-            if seed not in MyModel.DATA:
-                MyModel.DATA[seed] = CHF.tools.loadData(seed, self.input_number)
+        
         #make ready for train
         print("Model Loaded, init callbacks")
         self.callbacks = self._init_callbacks()
@@ -283,6 +280,14 @@ class MyModel:
         tb_metrics = TensorBoard(logdir)
         return [early_stop, learningRateScheduler, tb_metrics]#tb tjrs en dernier
 
+    def displayPerf(self):
+        print("mean absolute percent error : ",self.hparams['mape'])
+        print("mean square logarithmic error", self.hparams['msle'])
+        print("mean percent error", self.hparams['mpe'])
+        print("mean ratio measured/predicted", self.hparams['mean_MP'])
+        print("standart deviation of 1 ratio measured/predicted",self.hparams['std_MP'])
+        print("normalized root mean squared error",self.hparams['nrmse'])
+
     def _saveResults(self) -> None:
         """compute and save metrics in hparams"""
         #model.predict is a weird object
@@ -329,6 +334,7 @@ class MyModel:
     def _loadData(self) -> None:
         """check if corresponding valid/train set already computed,
         if no compute and add the new data in DATA"""
+
         seed = self.hparams['data_seed']
         if self.process_number == None:
             key = f"input_number {self.input_number} seed {seed}"

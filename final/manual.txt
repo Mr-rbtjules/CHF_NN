@@ -1,0 +1,82 @@
+Manual to use the module CHF_model_api
+
+###Creation of a NN model to predict CHF:###
+
+import CHF_model_api as CHF
+
+#dictionnary with all the importants hyperparameters
+#we can deal with
+
+my_hparams = {
+    'input_number':4,                                      #we can choose 4 (X,L/D,P, G) or 5 inputs (X,L/D,P, G, DHin)
+    'name': None,                                          #either None (then automatically set a knew name) or set the name of a previously saved model to reuse it
+    'architecture':[4, 61, 51, 28, 39, 26, 21,20, 14, 1],  # must be different than None, represent the number of neurons per layer
+    'learning_rate': 0.003420540282034936,
+    'dropout_rate' : 0.3348589818400747,
+    'learning_rate_decay' : 0.83,
+    'rythm' : 20,
+    'alpha_acti' : 0,
+    'batch_size' : 32,
+    'optimizer' : 'adam',
+    'max_epochs' : 400,                                    # 1 epoch = trained once on the training dataset
+    'loss_function' : 'msle',
+    'loss_delta_stop' : 0.001,                                   
+    'batch_normalisation' : True,
+    'patience': 30,
+    'data_seed' : 1,
+    'seed_tf': 1,
+    'verbose': 1,
+    'metric_name': 'msle',
+    'normalization_mean': None,                           #from here, all the hp are used for saved models and characterise its performance
+    'normalization_std': None,
+    'mpe': None,
+    'mean_MP': None,
+    'std_MP': None,
+    'nrmse': None,
+    'trained_epochs': 0,
+    }
+
+my_model = CHF.MyModel(hparams=my_hparams)
+
+
+"""one can choose to train the model for a given number of epochs (ex:300)"""
+my_model.train(train_epochs=300)
+
+"""or one can just choose to not precise the number of epochs
+and let the early stop activating when loss not varying (no more increase of the performance)
+one can handle the early stop with the hyper parameters:
+-loss_delta_stop (change value)
+-patience (number of epochs for wich the program check if the loss has varied more than 'loss_delta_stop',
+stop the training if not)
+"""
+
+my_model.train()
+
+""" one can now save the model"""
+my_model.save()
+
+
+
+"""one could now load the saved model """
+my_saved_model = CHF.MyModel(mode_name=my_model.name)
+
+
+""" or load another one with his id """
+my_saved_model = CHF.MyModel(mode_name='23423565-3443')
+
+
+""" one could keep training"""
+
+my_saved_model.train(train_epochs=30)
+
+""" one could check the performance of the saved model """
+
+my_saved_model.displayPerf()
+
+""" one could give a list containing features to receive prediction
+of the model """
+
+feat = [L/D,P,G,X] #(replace by float values)
+
+prediciton = my_saved_model.makeRealPredicitons(feat)
+

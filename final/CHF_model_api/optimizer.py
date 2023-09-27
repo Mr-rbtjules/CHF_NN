@@ -51,11 +51,11 @@ class MyOptimizer:
         self.trials = trials
         self.seed = 1
         #range of guess
-        self.dropout_range = [0.28,0.36]
-        self.learning_range = [0.002, 0.004]
-        self.rythm_range = [1,30]
-        self.lr_decrease_range = [0.75, 0.99]
-        self.alpha_activation_range = [-0.4, 0]
+        self.dropout_range = [0.32,0.35]
+        self.learning_range = [0.003, 0.004]
+        self.rythm_range = [15,30]
+        self.lr_decrease_range = [0.94, 0.999]
+        self.alpha_activation_range = [0, 0.4]
         self.MIN_LAYER = 4
         self.MAX_LAYER = 8
         self.MIN_NEURONS = 15 #not absolute minimum
@@ -184,7 +184,7 @@ class MyOptimizer:
             metric = model.hparams[model.hparams['metric_name']]#*0.5 +  model.hparams['nrmse']*0.5 
             
             
-            if model.hparams['mape'] < 10 or model.hparams['msle'] < 0.018:
+            if model.hparams['mape'] < 10 or model.hparams['msle'] < 0.02:
                 if model.name == model.now:#encore jamais save
                     print("\n\n\n save model good results\n\n\n")
                     model.save()
@@ -225,7 +225,6 @@ class MyOptimizer:
                 log=False
             )
             archi[i] = num_neurons            
-        archi.append(1)
         return archi
         
 
@@ -239,7 +238,7 @@ class MyOptimizer:
 
         with self.lock_attributes: #gain access to the attributes of the class optimizer (all the configs)
             print("get attribute access")
-            opti_hparams = copy.copy(self.generic_hparams)
+            opti_hparams = copy.deepcopy(self.generic_hparams)
             
             
                 ##archi guess###
@@ -270,16 +269,18 @@ class MyOptimizer:
                     ['SGD', 'adam']
                 )
             if self.opt_lr_decrease:
-                opti_hparams['learning_rate_decay'] = trial.suggest_int(
+                opti_hparams['learning_rate_decay'] = trial.suggest_float(
                     'learning_rate_decay',
                     self.lr_decrease_range[0], 
-                    self.lr_decrease_range[1]
+                    self.lr_decrease_range[1],
+                    log=False
                 )
-                opti_hparams['rythm'] = trial.suggest_int(
+                """opti_hparams['rythm'] = trial.suggest_int(
                     'rythm',
                     self.rythm_range[0], 
-                    self.rythm_range[1]
-                )
+                    self.rythm_range[1],
+                    log=False
+                )"""
             if self.opti_activation_method:
                 alpha_activation = trial.suggest_float(
                     "alpha_activation",
