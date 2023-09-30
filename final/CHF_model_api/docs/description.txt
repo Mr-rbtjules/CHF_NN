@@ -1,0 +1,1 @@
+sphinx-apidoc -o . ../CHF_model_api ou ../.. jsplus mais la ça fonctionnne

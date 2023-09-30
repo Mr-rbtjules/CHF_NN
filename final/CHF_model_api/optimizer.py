@@ -230,8 +230,7 @@ class MyOptimizer:
 
     def _opti_hparams_safe(self, trial)-> dict:
         """Return safely the guess optimized of ,
-        the hparameters and the epochs number
-        """
+        the hparameters and the epochs number"""
         learning_rate = None
         dropout_rate = None
         opti_hparams = None

@@ -1,22 +1,10 @@
-"""On va faire en sorte que on puisse donner
-une liste de modele sauvegarder et faire leur
-tb 
-et aussi creer un decorator qui s'applique
-que dans la classe Optimizer
-"""
+
 
 #check metrics and how to record it after
 #or just make a decorator link with the tbclass
 
 
-"""
-def tensorBoard_log(train_function):
-    def wrapper(*args, **kwargs):
-        
-        result = train_function(*args, **kwargs)
-        return result
-    return wrapper
-"""
+
 
 import tensorflow as tf
 from tensorboard.plugins.hparams import api as hp

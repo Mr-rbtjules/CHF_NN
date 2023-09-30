@@ -164,7 +164,7 @@ class MyModel:
         return None
 
     def makeRealPredictions(self, features_data: list) -> list:
-        """"""
+        
         scaler = StandardScaler()
         scaler.mean_ = self.normalization_mean
         scaler.scale_ = self.normalization_std
@@ -293,12 +293,12 @@ class MyModel:
         #model.predict is a weird object
         predictions = np.array([i[0] for i in self.model.predict(self.X_val)])
         mean_val = np.mean(self.y_val)
-        """if mean_val != 0:
-            mape = (np.mean(
-                np.abs(self.y_val - predictions) / np.mean(self.y_val)
-                )) * 100
-        else:
-            mpe = 100"""
+        #if mean_val != 0:
+         #   mape = (np.mean(
+          #      np.abs(self.y_val - predictions) / np.mean(self.y_val)
+           #     )) * 100
+        #else:
+         #   mpe = 100
     
         mape = ((np.sum(np.abs(self.y_val - predictions) / self.y_val)) /len(self.y_val)) * 100
         print("mean absolute percent error  : ", mape)

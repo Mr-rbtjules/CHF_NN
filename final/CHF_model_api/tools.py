@@ -112,7 +112,7 @@ def loadData(data_seed: int = 1, input_number: int = 5) -> dict:
     'validation_targets', 'validation_features','training_features'
     'training_targets', 'mean' 'std'(mean and std of the 
     training_features before normalization we need to keep when
-     predicting) and is meant to be add to DATA[seed] = {'validation':...}"""
+    predicting) and is meant to be add to DATA[seed] = {'validation':...}"""
     try:
         print("Load data from csv")
         data = pd.read_csv(f"./csv_files/sort_data.csv") 
@@ -230,8 +230,9 @@ def utilsNnConfig(model):
 
 
 
-"""Plot the structure of a keras neural network."""
+
 def visualizeNn(model, name, description=False, figsize=(10,8)):
+    """Plot the structure of a keras neural network."""
     ## get layers info
     lst_layers = utilsNnConfig(model)
     layer_sizes = [layer["out"] for layer in lst_layers]
