@@ -34,10 +34,10 @@ if __name__ == '__main__':
     #ajouter nb epoch entrainement totale aux hp
     
     
-    """my_model = CHF.MyModel(hparams=hparams,model_name = None,auto_save=True)
+    my_model = CHF.MyModel(hparams=hparams,model_name = None,auto_save=False)
     my_model.train()
-    print("archi 1 finished")"""
-    
+    print("archi 1 finished")
+    exit()
     
     hparams2 = {
     'input_number':4,

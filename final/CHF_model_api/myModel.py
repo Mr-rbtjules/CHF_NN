@@ -55,8 +55,6 @@ def batch_nrmse(y_true, y_pred) -> float:
 
 
 class MyModel:
-    #= {seed : {validation_targets':[...]}} 
-    DATA = {}
     """To complete"""
     def __init__(
             self, 
@@ -91,7 +89,8 @@ class MyModel:
         self.actMethod = LeakyReLU
         self.monitor_param = 'loss'
         self.other_metrics = ['mape', batch_nrmse]
-        self.process_number = process_number        
+        self.process_number = process_number  
+        self.data_base = None      
         #load hp and attributes
         self._loadMyModel(model_name)
 
@@ -334,14 +333,25 @@ class MyModel:
     def _loadData(self) -> None:
         """check if corresponding valid/train set already computed,
         if no compute and add the new data in DATA"""
-
+        
         seed = self.hparams['data_seed']
+        input_nb = self.input_number
         if self.process_number == None:
-            key = f"input_number {self.input_number} seed {seed}"
-            if key not in MyModel.DATA.keys():
-                MyModel.DATA[key] = '' #te set a value to show that this set is taken
-                MyModel.DATA[key] = CHF.tools.loadData(seed, self.input_number)
+            for db in CHF.MyDB.getAvailableDataBases():
+                if db.isCompatible(seed, input_nb):
+                    self.data_base = db
+            if self.data_base == None:
+                self.data_base = CHF.MyDB(seed,input_nb)
 
+            self.X_val = self.data_base.data['validation_features']
+            self.y_val = self.data_base.data['validation_targets']
+            self.X_train = self.data_base.data['train_features']
+            self.y_train = self.data_base.data['train_targets']
+            self.normalization_mean = self.data_base.data['mean'].tolist()
+            self.normalization_std = self.data_base.data['std'].tolist()
+
+            self.hparams['normalization_mean'] = self.normalization_mean
+            self.hparams['normalization_std'] = self.normalization_std
         ##optimize several process part
         else:
             key = f'copy {self.process_number} input_number ' \
@@ -349,15 +359,7 @@ class MyModel:
             if key not in MyModel.DATA.keys():
                 Exception("error no copy _load_data prblm")
 
-        self.X_val = MyModel.DATA[key]['validation_features']
-        self.y_val = MyModel.DATA[key]['validation_targets']
-        self.X_train = MyModel.DATA[key]['train_features']
-        self.y_train = MyModel.DATA[key]['train_targets']
-        self.normalization_mean = MyModel.DATA[key]['mean'].tolist()
-        self.normalization_std = MyModel.DATA[key]['std'].tolist()
-
-        self.hparams['normalization_mean'] = self.normalization_mean
-        self.hparams['normalization_std'] = self.normalization_std
+        
         return None
 
      # lr loose (1-expdecay)*100 % evry rythm epoch
