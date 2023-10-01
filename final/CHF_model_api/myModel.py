@@ -57,7 +57,7 @@ def batch_nrmse(y_true, y_pred) -> float:
 class MyModel:
     #= {seed : {validation_targets':[...]}} 
     DATA = {}
-
+    """To complete"""
     def __init__(
             self, 
             hparams:        dict = None,

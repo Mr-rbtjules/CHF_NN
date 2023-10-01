@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from CHF_model_api.config import TEST_DATA_PROPORTION, REMOVE_NEG_DHIN
 import json
 import os
+from scipy import interpolate
 
 
 ###JSON hparams###
@@ -105,8 +106,41 @@ def extractFromPdf(path) -> pd.DataFrame:
     data = pd.read_csv('./csv_files/sort_data.csv') 
     return data
 
+def lutInterpolation() -> None:
+    """lut interpolation"""
+    all = loadData(input_number=4)
+    y_val = all['validation_targets']
+    X_val = all['validation_features']
+    X_train = all['train_features']
+    y_train = all['train_targets']
+
+    predicted_y_val = interpolate.griddata(X_train, y_train, X_val, method='linear')
+
+    # Identify non-nan indices (i.e., points inside the convex hull)
+    inside_hull_indices = ~np.isnan(predicted_y_val)
+
+    # Filter out the points outside the convex hull
+    filtered_predicted_y_val = predicted_y_val[inside_hull_indices]
+    filtered_y_val = y_val[inside_hull_indices]
+
+    percentage_errors = ((filtered_y_val - filtered_predicted_y_val) / filtered_y_val) * 100
+
+    # Compute the Mean Absolute Percentage Error (MAPE)
+    mape = np.mean(np.abs(percentage_errors))
+
+    print(f"Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
+
+    if filtered_predicted_y_val.all() != 0:
+        mean_MP = np.mean(filtered_y_val/filtered_predicted_y_val) 
+        print(mean_MP)      
+    print('stdMp : ',stdMP(filtered_y_val, filtered_predicted_y_val))
+    print('nrmse ',nrmse(filtered_y_val, filtered_predicted_y_val))
+    print('msle ',myMsle(filtered_y_val, filtered_predicted_y_val))       
+        
+
+
 def loadData(data_seed: int = 1, input_number: int = 5) -> dict:
-    """take the data from a csv containing data SI units
+    """take the data from a csv containing data in IS units
     or create it from the Groeneveld 2006 LUT pdf
     return a dict containing the keys:
     'validation_targets', 'validation_features','training_features'
@@ -377,7 +411,9 @@ def reset_directories() -> None:
     RemoveDirectoryContent("./saved_models/hparams")
     RemoveDirectoryContent("./hparams_tuning_tb")
     return None
-    
+
+
+###METRICS###
 
 def nrmse(y_true,y_pred) -> float:
     """Compute normalised root mean suqared error"""
