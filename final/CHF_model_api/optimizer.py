@@ -6,11 +6,14 @@ import CHF_model_api as CHF
 import copy
 import datetime
 import os
+from pathlib import Path
 
 
 
 class MyOptimizer:
-
+    """This class create an optimizer for hyperparameter
+        of deep neural network to predict CHF using 
+        mainly optuna library"""
     def __init__(
             self,
             generic_hparams:        dict,
@@ -27,9 +30,6 @@ class MyOptimizer:
             metric:                 str = 'mpe',
             verbose:                int = 0
     ) -> None:
-        """This class create an optimizer for hyperparameter
-        of deep neural network to predict CHF using 
-        mainly optuna library"""
         #value to optimize
         self.metric_name = metric
         #set to true if want to optimize those
@@ -43,8 +43,8 @@ class MyOptimizer:
         if not db_name: 
             self.db_name = datetime.now().strftime("%Y%m%d-%H%M%S")
         else: self.db_name = db_name
-
-        self.db_path = f'./optuna_sql_databases/{self.db_name}.db'
+        
+        self.db_path = Path(CHF.config.SQLDB_DIR) / f"{self.db_name}.db"
         #nb of process
         self.jobs = jobs
         #nb of diff guess for 1 process
@@ -79,7 +79,7 @@ class MyOptimizer:
 
     ###PUBLIC METHOD###
     def optimize_my_models(self):
-                                                                        
+                                                         
         db_path = os.path.abspath(self.db_path)
         db_path = 'sqlite:///' + db_path
         processes = []
@@ -94,7 +94,7 @@ class MyOptimizer:
             studies.append(study)
             process = multiprocessing.Process(
                 target=study.optimize,
-                args=(self._objective,),
+                args=(self.objective,),
                 kwargs={'n_trials':self.trials}
             )
             processes.append(process)
@@ -117,8 +117,8 @@ class MyOptimizer:
     ###PRIVATE METHOD###
 
 
-    def _objective(self,trial): 
-        opti_hparams = self._opti_hparams_safe(trial)
+    def objective(self,trial): 
+        opti_hparams = self.opti_hparams_safe(trial)
         # Find an available dataset copy and lock to use
         model = None
         our_lock = None
@@ -126,7 +126,7 @@ class MyOptimizer:
         metric = None
         #go aver all the locks to get the free fata
         try:
-            our_lock_number, our_lock = self._access_data_index_safe()
+            our_lock_number, our_lock = self.access_data_index_safe()
             model = CHF.MyModel(
                     hparams=opti_hparams, 
                     process_number=our_lock_number, #will load the available list while init my_model object
@@ -134,7 +134,7 @@ class MyOptimizer:
             )
             if our_lock != None:
                 if model != None:
-                    self._train_and_report(model, trial)
+                    self.train_and_report(model, trial)
                     metric = model.hparams[model.hparams['metric_name']]
                     #*0.5 +  model.hparams['nrmse']*0.5 
                 #drop instance and release lok 
@@ -149,7 +149,7 @@ class MyOptimizer:
                 Exception("lock error")
         return metric 
     
-    def _access_data_index_safe(self) -> list:
+    def access_data_index_safe(self) -> list:
         our_lock = None
         our_lock_number = None
         #first we wait the list of locks to be available
@@ -174,7 +174,7 @@ class MyOptimizer:
         #free the list of locks but still have one of it for us
 
 
-    def _train_and_report(self, model, trial) -> None:
+    def train_and_report(self, model, trial) -> None:
         steps = model.hparams['steps']
         epochs = model.hparams['max_epochs']
 
@@ -200,20 +200,20 @@ class MyOptimizer:
                 print("\n\nPRUNED\n\n")
                 epoch = epochs
 
-    def _make_archi_type(self, trial, type, opti_hparams) -> list:
+    def make_archi_type(self, trial, type, opti_hparams) -> list:
         archi = None
         if type == 1:
-            archi = self._make_decreased_archi(trial)
+            archi = self.make_decreased_archi(trial)
         elif type == 2:
-            archi = self._make_increased_archi(trial)
+            archi = self.make_increased_archi(trial)
         elif type == 3:
-            archi = self._make_random_archi(trial)
+            archi = self.make_random_archi(trial)
 
         elif type == 4:
-            archi = self._make_around_archi(trial, opti_hparams)
+            archi = self.make_around_archi(trial, opti_hparams)
         return archi
     
-    def _make_around_archi(self, trial, opti_hparams):
+    def make_around_archi(self, trial, opti_hparams):
         archi = opti_hparams['architecture']
         #make a guess for the nb og layers in the nn
         num_layers = len(archi)
@@ -228,7 +228,7 @@ class MyOptimizer:
         return archi
         
 
-    def _opti_hparams_safe(self, trial)-> dict:
+    def opti_hparams_safe(self, trial)-> dict:
         """Return safely the guess optimized of ,
         the hparameters and the epochs number"""
         learning_rate = None
@@ -242,7 +242,7 @@ class MyOptimizer:
             
                 ##archi guess###
             if self.opti_archirecture:
-                opti_hparams['architecture'] = self._make_archi_type(
+                opti_hparams['architecture'] = self.make_archi_type(
                     trial, 
                     self.type,
                     opti_hparams
@@ -298,7 +298,7 @@ class MyOptimizer:
 
     
 
-    def _make_decreased_archi(self,trial) -> list:
+    def make_decreased_archi(self,trial) -> list:
         archi = []
         archi.append(self.input_nb)
         #make a guess for the nb og layers in the nn
@@ -330,7 +330,7 @@ class MyOptimizer:
         archi.append(self.output_nb)
         return archi
     
-    def _make_increased_archi(self,trial) -> list:
+    def make_increased_archi(self,trial) -> list:
         archi = []
         archi.append(self.input_nb)
         #make a guess for the nb og layers in the nn
@@ -360,7 +360,7 @@ class MyOptimizer:
 
         return archi
     
-    def _make_random_archi(self, trial) -> list:
+    def make_random_archi(self, trial) -> list:
         archi = []
         archi.append(self.input_nb)
         #make a guess for the nb og layers in the nn

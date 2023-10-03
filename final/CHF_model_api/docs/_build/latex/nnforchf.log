@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.9.30)  30 SEP 2023 13:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.9.30)  2 OCT 2023 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -862,16 +862,16 @@ LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
  [1
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 3
-50.
+LaTeX Font Info:    Trying to load font information for TS1+qtm on input line 4
+21.
 
 (/usr/share/texmf/tex/latex/tex-gyre/ts1qtm.fd
 File: ts1qtm.fd 2009/09/25 v1.2 font definition file for TS1/qtm
-) [2] [3] [4
-
-]
+) [2] [3] [4]
 Chapter 2.
-[5] [6
+[5
+
+] [6
 
 ] [7
 
@@ -880,161 +880,267 @@ Chapter 2.
 
 
 ]
-Overfull \hbox (40.81229pt too wide) in paragraph at lines 8--10
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+[]\T1/txtt/m/n/10 access_data_index_safe()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+\T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
+ []
+
+
+Overfull \hbox (40.81229pt too wide) in paragraph at lines 10--12
 []\T1/txtt/m/n/10 add_hparams() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
 yTensorboard.MyTensorboard
  []
 
 
-Overfull \hbox (30.31232pt too wide) in paragraph at lines 10--12
+Overfull \hbox (30.31232pt too wide) in paragraph at lines 12--14
 []\T1/txtt/m/n/10 add_model() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myT
 ensorboard.MyTensorboard
  []
 
 
-Overfull \hbox (61.81223pt too wide) in paragraph at lines 12--14
+Overfull \hbox (61.81223pt too wide) in paragraph at lines 14--16
 []\T1/txtt/m/n/10 add_saved_model() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_a
 pi.myTensorboard.MyTensorboard
  []
 
 
-Overfull \hbox (25.06233pt too wide) in paragraph at lines 33--35
+Overfull \hbox (25.06233pt too wide) in paragraph at lines 35--37
 []\T1/txtt/m/n/10 copy_log() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myTe
 nsorboard.MyTensorboard
  []
 
 
-Overfull \hbox (30.31232pt too wide) in paragraph at lines 35--37
+Overfull \hbox (30.31232pt too wide) in paragraph at lines 37--39
 []\T1/txtt/m/n/10 copy_logs() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myT
 ensorboard.MyTensorboard
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
-[]\T1/txtt/m/n/10 displayPerf() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
-yModel.MyModel
+Underfull \hbox (badness 7256) in paragraph at lines 39--40
+[]\T1/txtt/m/n/10 createNewModel() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_ap
+i.model.MyModel
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
+Underfull \hbox (badness 10000) in paragraph at lines 43--44
+[]\T1/txtt/m/n/10 displayPerf() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
+odel.MyModel
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
 []\T1/txtt/m/n/10 getHparamsSavedModel() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 in mod
 -ule
  []
 
 
-Overfull \hbox (40.81229pt too wide) in paragraph at lines 54--56
+Underfull \hbox (badness 7256) in paragraph at lines 55--56
+[]\T1/txtt/m/n/10 init_callbacks() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_ap
+i.model.MyModel
+ []
+
+
+Overfull \hbox (40.81229pt too wide) in paragraph at lines 56--58
 []\T1/txtt/m/n/10 init_models() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
 yTensorboard.MyTensorboard
  []
 
 
-Overfull \hbox (19.81235pt too wide) in paragraph at lines 59--61
+Overfull \hbox (19.81235pt too wide) in paragraph at lines 61--63
 []\T1/txtt/m/n/10 load_tb() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myTen
 sorboard.MyTensorboard
  []
 
 
-Overfull \hbox (40.81229pt too wide) in paragraph at lines 62--64
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+[]\T1/txtt/m/n/10 loadMyModel() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
+odel.MyModel
+ []
+
+
+Overfull \hbox (40.81229pt too wide) in paragraph at lines 65--67
 []\T1/txtt/m/n/10 log_Hparams() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
 yTensorboard.MyTensorboard
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--66
+Underfull \hbox (badness 10000) in paragraph at lines 67--69
 []\T1/txtt/m/n/10 log_Hparams_range()
  []
 
 
-Overfull \hbox (10.89249pt too wide) in paragraph at lines 64--66
+Overfull \hbox (10.89249pt too wide) in paragraph at lines 67--69
 \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myTensorboard.MyTensorboard
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--71
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+[]\T1/txtt/m/n/10 lrScheduler() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
+odel.MyModel
+ []
+
+
+Overfull \hbox (25.99226pt too wide) in paragraph at lines 73--75
+[]\T1/txtt/m/n/10 make_archi_type() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_a
+pi.optimizer.MyOptimizer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
+[]\T1/txtt/m/n/10 make_around_archi()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
+\T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--79
+[]\T1/txtt/m/n/10 make_decreased_archi()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--79
+\T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--81
 []\T1/txtt/m/n/10 make_Hparams_range()
  []
 
 
-Overfull \hbox (10.89249pt too wide) in paragraph at lines 69--71
+Overfull \hbox (10.89249pt too wide) in paragraph at lines 79--81
 \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myTensorboard.MyTensorboard
  []
 
 
-Overfull \hbox (6.72227pt too wide) in paragraph at lines 71--73
-[]\T1/txtt/m/n/10 makeDataCopies() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_ap
-i.myModel.MyModel
+Underfull \hbox (badness 10000) in paragraph at lines 81--83
+[]\T1/txtt/m/n/10 make_increased_archi()
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 73--75
-[]\T1/txtt/m/n/10 makeRealPredictions()
+Underfull \hbox (badness 10000) in paragraph at lines 81--83
+\T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--86
-[]\T1/txtt/m/n/10 MyTensorboard \T1/qtm/m/n/10 (\T1/qtm/m/it/10 class in
+Underfull \hbox (badness 10000) in paragraph at lines 83--85
+[]\T1/txtt/m/n/10 make_random_archi()
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 93--95
-[]\T1/txtt/m/n/10 optimize_my_models()
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 93--95
+Underfull \hbox (badness 10000) in paragraph at lines 83--85
 \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
  []
 
 [9
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 98--99
-[]\T1/txtt/m/n/10 plotResult() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.my
-Model.MyModel
+Underfull \hbox (badness 7256) in paragraph at lines 85--87
+[]\T1/txtt/m/n/10 makeDataCopies() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_ap
+i.model.MyModel
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--106
+Underfull \hbox (badness 10000) in paragraph at lines 87--89
+[]\T1/txtt/m/n/10 makeRealPredictions()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 99--100
+[]\T1/txtt/m/n/10 MyTensorboard \T1/qtm/m/n/10 (\T1/qtm/m/it/10 class in
+ []
+
+
+Underfull \hbox (badness 5231) in paragraph at lines 107--109
+[]\T1/txtt/m/n/10 objective() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.opt
+imizer.MyOptimizer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+[]\T1/txtt/m/n/10 opti_hparams_safe()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--111
+\T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--113
+[]\T1/txtt/m/n/10 optimize_my_models()
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 111--113
+\T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.optimizer.MyOptimizer
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+[]\T1/txtt/m/n/10 plotResult() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.mo
+del.MyModel
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--124
 []\T1/txtt/m/n/10 RemoveDirectoryContent() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 in m
 od-ule
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
 []\T1/txtt/m/n/10 reset_directories() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 in mod-ul
 e
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--114
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+[]\T1/txtt/m/n/10 saveResults() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.m
+odel.MyModel
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 131--133
 []\T1/txtt/m/n/10 set_up_directories()
  []
 
 
-Overfull \hbox (10.89249pt too wide) in paragraph at lines 112--114
+Overfull \hbox (10.89249pt too wide) in paragraph at lines 131--133
 \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myTensorboard.MyTensorboard
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
-[]\T1/txtt/m/n/10 vizualize() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.myM
-odel.MyModel
+Overfull \hbox (31.24225pt too wide) in paragraph at lines 138--140
+[]\T1/txtt/m/n/10 train_and_report() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_
+api.optimizer.MyOptimizer
  []
 
-[10
 
-]) (./nnforchf.aux)
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
+[]\T1/txtt/m/n/10 vizualize() \T1/qtm/m/n/10 (\T1/qtm/m/it/10 CHF_model_api.mod
+el.MyModel
+ []
+
+[10]) (./nnforchf.aux)
 Package rerunfilecheck Info: File `nnforchf.out' has not changed.
-(rerunfilecheck)             Checksum: 660962013A777B707113F0B0DD6CA9F6;1965.
+(rerunfilecheck)             Checksum: 6C952B8DA560EAB853F6DA7267FFFD57;1955.
  ) 
 Here is how much of TeX's memory you used:
- 16055 strings out of 480247
- 269571 string characters out of 5896151
- 575482 words of memory out of 5000000
- 33551 multiletter control sequences out of 15000+600000
+ 16078 strings out of 480247
+ 270476 string characters out of 5896151
+ 577154 words of memory out of 5000000
+ 33562 multiletter control sequences out of 15000+600000
  520241 words of font info for 68 fonts, out of 8000000 for 9000
  15 hyphenation exceptions out of 8191
- 70i,11n,76p,2405b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 70i,12n,76p,2405b,553s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qhvb.pfb></
@@ -1043,10 +1149,10 @@ pe1/public/tex-gyre/qtmb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmr
 .pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/txfonts/t1xbtt.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on nnforchf.pdf (14 pages, 166025 bytes).
+Output written on nnforchf.pdf (14 pages, 165965 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
- 65 named destinations out of 1000 (max. 500000)
+ 304 PDF objects out of 1000 (max. 8388607)
+ 270 compressed objects within 3 object streams
+ 77 named destinations out of 1000 (max. 500000)
  117 words of extra memory for PDF output out of 10000 (max. 10000000)
 

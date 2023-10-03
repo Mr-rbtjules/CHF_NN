@@ -64,7 +64,7 @@
 
 
 \title{NN for CHF}
-\date{Sep 30, 2023}
+\date{Oct 02, 2023}
 \release{}
 \author{Dumont Jules}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -102,68 +102,127 @@
 \subsection{CHF\_model\_api.config module}
 \label{\detokenize{CHF_model_api:module-CHF_model_api.config}}\label{\detokenize{CHF_model_api:chf-model-api-config-module}}\index{module@\spxentry{module}!CHF\_model\_api.config@\spxentry{CHF\_model\_api.config}}\index{CHF\_model\_api.config@\spxentry{CHF\_model\_api.config}!module@\spxentry{module}}
 
-\subsection{CHF\_model\_api.myModel module}
-\label{\detokenize{CHF_model_api:module-CHF_model_api.myModel}}\label{\detokenize{CHF_model_api:chf-model-api-mymodel-module}}\index{module@\spxentry{module}!CHF\_model\_api.myModel@\spxentry{CHF\_model\_api.myModel}}\index{CHF\_model\_api.myModel@\spxentry{CHF\_model\_api.myModel}!module@\spxentry{module}}\index{MyModel (class in CHF\_model\_api.myModel)@\spxentry{MyModel}\spxextra{class in CHF\_model\_api.myModel}}
+\subsection{CHF\_model\_api.model module}
+\label{\detokenize{CHF_model_api:module-CHF_model_api.model}}\label{\detokenize{CHF_model_api:chf-model-api-model-module}}\index{module@\spxentry{module}!CHF\_model\_api.model@\spxentry{CHF\_model\_api.model}}\index{CHF\_model\_api.model@\spxentry{CHF\_model\_api.model}!module@\spxentry{module}}\index{MyModel (class in CHF\_model\_api.model)@\spxentry{MyModel}\spxextra{class in CHF\_model\_api.model}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{CHF\_model\_api.myModel.}}\sphinxbfcode{\sphinxupquote{MyModel}}}{\sphinxparam{\DUrole{n}{hparams}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{dict\DUrole{w}{ }\DUrole{p}{|}\DUrole{w}{ }None}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{model\_name}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str\DUrole{w}{ }\DUrole{p}{|}\DUrole{w}{ }None}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{auto\_save}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{bool}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{n}{process\_number}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{int\DUrole{w}{ }\DUrole{p}{|}\DUrole{w}{ }None}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{None}}}{}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class\DUrole{w}{ }}}\sphinxcode{\sphinxupquote{CHF\_model\_api.model.}}\sphinxbfcode{\sphinxupquote{MyModel}}}{\sphinxparam{\DUrole{n}{hparams}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{dict\DUrole{w}{ }\DUrole{p}{|}\DUrole{w}{ }None}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{model\_name}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str\DUrole{w}{ }\DUrole{p}{|}\DUrole{w}{ }None}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{None}}\sphinxparamcomma \sphinxparam{\DUrole{n}{auto\_save}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{bool}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{False}}\sphinxparamcomma \sphinxparam{\DUrole{n}{process\_number}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{int\DUrole{w}{ }\DUrole{p}{|}\DUrole{w}{ }None}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{None}}}{}
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
-\index{DATA (CHF\_model\_api.myModel.MyModel attribute)@\spxentry{DATA}\spxextra{CHF\_model\_api.myModel.MyModel attribute}}
+
+\sphinxAtStartPar
+class that either create a CHF prediction model from scratch using hparams
+dictionnary or load a saved one from model\_name from a .h5 file and his hp 
+from json
+\index{createNewModel() (CHF\_model\_api.model.MyModel method)@\spxentry{createNewModel()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.DATA}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.createNewModel}}
 \pysigstartsignatures
-\pysigline{\sphinxbfcode{\sphinxupquote{DATA}}\sphinxbfcode{\sphinxupquote{\DUrole{w}{ }\DUrole{p}{=}\DUrole{w}{ }\{\}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{createNewModel}}}{}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \sphinxAtStartPar
-To complete
+create new model based on hparams
 
 \end{fulllineitems}
 
-\index{displayPerf() (CHF\_model\_api.myModel.MyModel method)@\spxentry{displayPerf()}\spxextra{CHF\_model\_api.myModel.MyModel method}}
+\index{displayPerf() (CHF\_model\_api.model.MyModel method)@\spxentry{displayPerf()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.displayPerf}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.displayPerf}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{displayPerf}}}{}{}
 \pysigstopsignatures
 \end{fulllineitems}
 
-\index{makeDataCopies() (CHF\_model\_api.myModel.MyModel class method)@\spxentry{makeDataCopies()}\spxextra{CHF\_model\_api.myModel.MyModel class method}}
+\index{init\_callbacks() (CHF\_model\_api.model.MyModel method)@\spxentry{init\_callbacks()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.makeDataCopies}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.init_callbacks}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{init\_callbacks}}}{}{{ $\rightarrow$ list}}
+\pysigstopsignatures
+\sphinxAtStartPar
+action taken at evry epoch for monitoring
+
+\end{fulllineitems}
+
+\index{loadData() (CHF\_model\_api.model.MyModel method)@\spxentry{loadData()}\spxextra{CHF\_model\_api.model.MyModel method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.loadData}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{loadData}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
+\sphinxAtStartPar
+check if corresponding valid/train set already computed,
+if no compute and add the new data in DATA
+
+\end{fulllineitems}
+
+\index{loadMyModel() (CHF\_model\_api.model.MyModel method)@\spxentry{loadMyModel()}\spxextra{CHF\_model\_api.model.MyModel method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.loadMyModel}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{loadMyModel}}}{\sphinxparam{\DUrole{n}{model\_name}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}}}{{ $\rightarrow$ None}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Create a model based on hparams given in parameterss
+or use a saved one based on his name and load it from saved\_models
+directory set also all the attributes
+
+\end{fulllineitems}
+
+\index{lrScheduler() (CHF\_model\_api.model.MyModel method)@\spxentry{lrScheduler()}\spxextra{CHF\_model\_api.model.MyModel method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.lrScheduler}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{lrScheduler}}}{\sphinxparam{\DUrole{n}{epoch}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{int}}\sphinxparamcomma \sphinxparam{\DUrole{n}{lr}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{float}}}{{ $\rightarrow$ float}}
+\pysigstopsignatures
+\sphinxAtStartPar
+program a decrease of the learning rate
+
+\end{fulllineitems}
+
+\index{makeDataCopies() (CHF\_model\_api.model.MyModel class method)@\spxentry{makeDataCopies()}\spxextra{CHF\_model\_api.model.MyModel class method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.makeDataCopies}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{classmethod\DUrole{w}{ }}}\sphinxbfcode{\sphinxupquote{makeDataCopies}}}{\sphinxparam{\DUrole{n}{jobs}}\sphinxparamcomma \sphinxparam{\DUrole{n}{seed}}\sphinxparamcomma \sphinxparam{\DUrole{n}{input\_number}}}{}
 \pysigstopsignatures
 \end{fulllineitems}
 
-\index{makeRealPredictions() (CHF\_model\_api.myModel.MyModel method)@\spxentry{makeRealPredictions()}\spxextra{CHF\_model\_api.myModel.MyModel method}}
+\index{makeRealPredictions() (CHF\_model\_api.model.MyModel method)@\spxentry{makeRealPredictions()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.makeRealPredictions}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.makeRealPredictions}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{makeRealPredictions}}}{\sphinxparam{\DUrole{n}{features\_data}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{list}}}{{ $\rightarrow$ list}}
 \pysigstopsignatures
+\sphinxAtStartPar
+make CHF predicitons
+
 \end{fulllineitems}
 
-\index{plotResult() (CHF\_model\_api.myModel.MyModel method)@\spxentry{plotResult()}\spxextra{CHF\_model\_api.myModel.MyModel method}}
+\index{plotResult() (CHF\_model\_api.model.MyModel method)@\spxentry{plotResult()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.plotResult}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.plotResult}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{plotResult}}}{}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \end{fulllineitems}
 
-\index{save() (CHF\_model\_api.myModel.MyModel method)@\spxentry{save()}\spxextra{CHF\_model\_api.myModel.MyModel method}}
+\index{save() (CHF\_model\_api.model.MyModel method)@\spxentry{save()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.save}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.save}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{save}}}{\sphinxparam{\DUrole{n}{overwrite}\DUrole{o}{=}\DUrole{default_value}{False}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
@@ -173,10 +232,22 @@ save also the hparams of the model in json files
 
 \end{fulllineitems}
 
-\index{train() (CHF\_model\_api.myModel.MyModel method)@\spxentry{train()}\spxextra{CHF\_model\_api.myModel.MyModel method}}
+\index{saveResults() (CHF\_model\_api.model.MyModel method)@\spxentry{saveResults()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.train}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.saveResults}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{saveResults}}}{}{{ $\rightarrow$ None}}
+\pysigstopsignatures
+\sphinxAtStartPar
+compute and save metrics in hparams
+
+\end{fulllineitems}
+
+\index{train() (CHF\_model\_api.model.MyModel method)@\spxentry{train()}\spxextra{CHF\_model\_api.model.MyModel method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.train}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{train}}}{\sphinxparam{\DUrole{n}{logs}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{n}{callbacks}\DUrole{o}{=}\DUrole{default_value}{True}}\sphinxparamcomma \sphinxparam{\DUrole{n}{train\_epochs}\DUrole{o}{=}\DUrole{default_value}{None}}}{{ $\rightarrow$ dict}}
 \pysigstopsignatures
@@ -186,10 +257,10 @@ the results in the attribute hparams
 
 \end{fulllineitems}
 
-\index{vizualize() (CHF\_model\_api.myModel.MyModel method)@\spxentry{vizualize()}\spxextra{CHF\_model\_api.myModel.MyModel method}}
+\index{vizualize() (CHF\_model\_api.model.MyModel method)@\spxentry{vizualize()}\spxextra{CHF\_model\_api.model.MyModel method}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel.vizualize}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.MyModel.vizualize}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{vizualize}}}{}{{ $\rightarrow$ None}}
 \pysigstopsignatures
@@ -201,12 +272,12 @@ save a png file containing vizual rpz of the network
 
 \end{fulllineitems}
 
-\index{batch\_nrmse() (in module CHF\_model\_api.myModel)@\spxentry{batch\_nrmse()}\spxextra{in module CHF\_model\_api.myModel}}
+\index{batch\_nrmse() (in module CHF\_model\_api.model)@\spxentry{batch\_nrmse()}\spxextra{in module CHF\_model\_api.model}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myModel.batch_nrmse}}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.model.batch_nrmse}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{CHF\_model\_api.myModel.}}\sphinxbfcode{\sphinxupquote{batch\_nrmse}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_pred}}}{{ $\rightarrow$ float}}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{CHF\_model\_api.model.}}\sphinxbfcode{\sphinxupquote{batch\_nrmse}}}{\sphinxparam{\DUrole{n}{y\_true}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_pred}}}{{ $\rightarrow$ float}}
 \pysigstopsignatures
 \end{fulllineitems}
 
@@ -279,7 +350,7 @@ get the logs of all the models to compare
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.myTensorboard.MyTensorboard.init_models}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{init\_models}}}{}{{ $\rightarrow$ List\DUrole{p}{{[}}{\hyperref[\detokenize{CHF_model_api:CHF_model_api.myModel.MyModel}]{\sphinxcrossref{MyModel}}}\DUrole{p}{{]}}}}
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{init\_models}}}{}{{ $\rightarrow$ List\DUrole{p}{{[}}{\hyperref[\detokenize{CHF_model_api:CHF_model_api.model.MyModel}]{\sphinxcrossref{MyModel}}}\DUrole{p}{{]}}}}
 \pysigstopsignatures
 \sphinxAtStartPar
 get the saved models by creating object my\_models
@@ -351,12 +422,102 @@ a directory for each different model (with diff hp)
 \pysigstopsignatures
 \sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
+
+\sphinxAtStartPar
+This class create an optimizer for hyperparameter
+of deep neural network to predict CHF using 
+mainly optuna library
+\index{access\_data\_index\_safe() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{access\_data\_index\_safe()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.access_data_index_safe}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{access\_data\_index\_safe}}}{}{{ $\rightarrow$ list}}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{make\_archi\_type() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_archi\_type()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.make_archi_type}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{make\_archi\_type}}}{\sphinxparam{\DUrole{n}{trial}}\sphinxparamcomma \sphinxparam{\DUrole{n}{type}}\sphinxparamcomma \sphinxparam{\DUrole{n}{opti\_hparams}}}{{ $\rightarrow$ list}}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{make\_around\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_around\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.make_around_archi}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{make\_around\_archi}}}{\sphinxparam{\DUrole{n}{trial}}\sphinxparamcomma \sphinxparam{\DUrole{n}{opti\_hparams}}}{}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{make\_decreased\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_decreased\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.make_decreased_archi}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{make\_decreased\_archi}}}{\sphinxparam{\DUrole{n}{trial}}}{{ $\rightarrow$ list}}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{make\_increased\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_increased\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.make_increased_archi}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{make\_increased\_archi}}}{\sphinxparam{\DUrole{n}{trial}}}{{ $\rightarrow$ list}}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{make\_random\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_random\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.make_random_archi}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{make\_random\_archi}}}{\sphinxparam{\DUrole{n}{trial}}}{{ $\rightarrow$ list}}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{objective() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{objective()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.objective}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{objective}}}{\sphinxparam{\DUrole{n}{trial}}}{}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{opti\_hparams\_safe() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{opti\_hparams\_safe()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.opti_hparams_safe}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{opti\_hparams\_safe}}}{\sphinxparam{\DUrole{n}{trial}}}{{ $\rightarrow$ dict}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Return safely the guess optimized of ,
+the hparameters and the epochs number
+
+\end{fulllineitems}
+
 \index{optimize\_my\_models() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{optimize\_my\_models()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.optimize_my_models}}
 \pysigstartsignatures
 \pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{optimize\_my\_models}}}{}{}
+\pysigstopsignatures
+\end{fulllineitems}
+
+\index{train\_and\_report() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{train\_and\_report()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.optimizer.MyOptimizer.train_and_report}}
+\pysigstartsignatures
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{train\_and\_report}}}{\sphinxparam{\DUrole{n}{model}}\sphinxparamcomma \sphinxparam{\DUrole{n}{trial}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
 \end{fulllineitems}
 
@@ -390,19 +551,6 @@ Erase stored hyperparameters
 
 \end{fulllineitems}
 
-\index{extractFromPdf() (in module CHF\_model\_api.tools)@\spxentry{extractFromPdf()}\spxextra{in module CHF\_model\_api.tools}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.tools.extractFromPdf}}
-\pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{CHF\_model\_api.tools.}}\sphinxbfcode{\sphinxupquote{extractFromPdf}}}{\sphinxparam{\DUrole{n}{path}}}{{ $\rightarrow$ DataFrame}}
-\pysigstopsignatures
-\sphinxAtStartPar
-create a csv file based on Groeneveld 2006 LUT pdf
-take 2 min to run
-
-\end{fulllineitems}
-
 \index{getHparamsSavedModel() (in module CHF\_model\_api.tools)@\spxentry{getHparamsSavedModel()}\spxextra{in module CHF\_model\_api.tools}}
 
 \begin{fulllineitems}
@@ -413,24 +561,6 @@ take 2 min to run
 \sphinxAtStartPar
 return a dict with all the hyperparameters saved
 in the directory hparams in saved\_models
-
-\end{fulllineitems}
-
-\index{loadData() (in module CHF\_model\_api.tools)@\spxentry{loadData()}\spxextra{in module CHF\_model\_api.tools}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.tools.loadData}}
-\pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{CHF\_model\_api.tools.}}\sphinxbfcode{\sphinxupquote{loadData}}}{\sphinxparam{\DUrole{n}{data\_seed}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{int}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{1}}\sphinxparamcomma \sphinxparam{\DUrole{n}{input\_number}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{int}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{5}}}{{ $\rightarrow$ dict}}
-\pysigstopsignatures
-\sphinxAtStartPar
-take the data from a csv containing data SI units
-or create it from the Groeneveld 2006 LUT pdf
-return a dict containing the keys:
-‘validation\_targets’, ‘validation\_features’,’training\_features’
-‘training\_targets’, ‘mean’ ‘std’(mean and std of the 
-training\_features before normalization we need to keep when
-predicting) and is meant to be add to DATA{[}seed{]} = \{‘validation’:…\}
 
 \end{fulllineitems}
 
@@ -463,8 +593,12 @@ Compute normalised root mean suqared error
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{CHF_model_api:CHF_model_api.tools.plotResults}}
 \pysigstartsignatures
-\pysiglinewithargsret{\sphinxcode{\sphinxupquote{CHF\_model\_api.tools.}}\sphinxbfcode{\sphinxupquote{plotResults}}}{\sphinxparam{\DUrole{n}{predictions}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_val}}\sphinxparamcomma \sphinxparam{\DUrole{n}{save\_fig}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
+\pysiglinewithargsret{\sphinxcode{\sphinxupquote{CHF\_model\_api.tools.}}\sphinxbfcode{\sphinxupquote{plotResults}}}{\sphinxparam{\DUrole{n}{predictions}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{list}}\sphinxparamcomma \sphinxparam{\DUrole{n}{y\_val}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{list}}\sphinxparamcomma \sphinxparam{\DUrole{n}{save\_fig}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{bool}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{False}}}{{ $\rightarrow$ None}}
 \pysigstopsignatures
+\sphinxAtStartPar
+Plot the the graph of the predicted value in functino
+of the measured values
+
 \end{fulllineitems}
 
 \index{remove\_backups() (in module CHF\_model\_api.tools)@\spxentry{remove\_backups()}\spxextra{in module CHF\_model\_api.tools}}
@@ -560,7 +694,7 @@ Plot the structure of a keras neural network.
 \bigletter{c}
 \item\relax\sphinxstyleindexentry{CHF\_model\_api}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api}}
 \item\relax\sphinxstyleindexentry{CHF\_model\_api.config}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api.config}}
-\item\relax\sphinxstyleindexentry{CHF\_model\_api.myModel}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api.myModel}}
+\item\relax\sphinxstyleindexentry{CHF\_model\_api.model}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api.model}}
 \item\relax\sphinxstyleindexentry{CHF\_model\_api.myTensorboard}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api.myTensorboard}}
 \item\relax\sphinxstyleindexentry{CHF\_model\_api.optimizer}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api.optimizer}}
 \item\relax\sphinxstyleindexentry{CHF\_model\_api.tools}\sphinxstyleindexpageref{CHF_model_api:\detokenize{module-CHF_model_api.tools}}

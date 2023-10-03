@@ -5,6 +5,8 @@
 \let\spxextra \sphinxstyleindexextra
 
   \bigletter A
+  \item \spxentry{access\_data\_index\_safe()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{2}
   \item \spxentry{add\_hparams()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
   \item \spxentry{add\_model()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
@@ -14,43 +16,43 @@
 
   \indexspace
   \bigletter B
-  \item \spxentry{batch\_nrmse()}\spxextra{in module CHF\_model\_api.myModel}, \hyperpage{1}
+  \item \spxentry{batch\_nrmse()}\spxextra{in module CHF\_model\_api.model}, \hyperpage{2}
 
   \indexspace
   \bigletter C
   \item \spxentry{CHF\_model\_api}
-    \subitem \spxentry{module}, \hyperpage{3}
+    \subitem \spxentry{module}, \hyperpage{4}
   \item \spxentry{CHF\_model\_api.config}
     \subitem \spxentry{module}, \hyperpage{1}
-  \item \spxentry{CHF\_model\_api.myModel}
+  \item \spxentry{CHF\_model\_api.model}
     \subitem \spxentry{module}, \hyperpage{1}
   \item \spxentry{CHF\_model\_api.myTensorboard}
     \subitem \spxentry{module}, \hyperpage{2}
   \item \spxentry{CHF\_model\_api.optimizer}
     \subitem \spxentry{module}, \hyperpage{2}
   \item \spxentry{CHF\_model\_api.tools}
-    \subitem \spxentry{module}, \hyperpage{2}
+    \subitem \spxentry{module}, \hyperpage{3}
   \item \spxentry{copy\_log()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
   \item \spxentry{copy\_logs()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
+  \item \spxentry{createNewModel()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
 
   \indexspace
   \bigletter D
-  \item \spxentry{DATA}\spxextra{CHF\_model\_api.myModel.MyModel attribute}, \hyperpage{1}
-  \item \spxentry{displayPerf()}\spxextra{CHF\_model\_api.myModel.MyModel method}, \hyperpage{1}
+  \item \spxentry{displayPerf()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
 
   \indexspace
   \bigletter E
-  \item \spxentry{eraseHparams()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{2}
-  \item \spxentry{extractFromPdf()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{2}
+  \item \spxentry{eraseHparams()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
 
   \indexspace
   \bigletter G
-  \item \spxentry{getHparamsSavedModel()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{2}
+  \item \spxentry{getHparamsSavedModel()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
 
   \indexspace
   \bigletter I
+  \item \spxentry{init\_callbacks()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
   \item \spxentry{init\_models()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
 
@@ -58,28 +60,40 @@
   \bigletter L
   \item \spxentry{load\_tb()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
-  \item \spxentry{loadData()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
+  \item \spxentry{loadData()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
+  \item \spxentry{loadMyModel()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
   \item \spxentry{log\_Hparams()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
   \item \spxentry{log\_Hparams\_range()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
+  \item \spxentry{lrScheduler()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
 
   \indexspace
   \bigletter M
+  \item \spxentry{make\_archi\_type()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
+  \item \spxentry{make\_around\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
+  \item \spxentry{make\_decreased\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
   \item \spxentry{make\_Hparams\_range()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
-  \item \spxentry{makeDataCopies()}\spxextra{CHF\_model\_api.myModel.MyModel class method}, 
+  \item \spxentry{make\_increased\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
+  \item \spxentry{make\_random\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
+  \item \spxentry{makeDataCopies()}\spxextra{CHF\_model\_api.model.MyModel class method}, 
 		\hyperpage{1}
-  \item \spxentry{makeRealPredictions()}\spxextra{CHF\_model\_api.myModel.MyModel method}, 
+  \item \spxentry{makeRealPredictions()}\spxextra{CHF\_model\_api.model.MyModel method}, 
 		\hyperpage{1}
   \item \spxentry{module}
-    \subitem \spxentry{CHF\_model\_api}, \hyperpage{3}
+    \subitem \spxentry{CHF\_model\_api}, \hyperpage{4}
     \subitem \spxentry{CHF\_model\_api.config}, \hyperpage{1}
-    \subitem \spxentry{CHF\_model\_api.myModel}, \hyperpage{1}
+    \subitem \spxentry{CHF\_model\_api.model}, \hyperpage{1}
     \subitem \spxentry{CHF\_model\_api.myTensorboard}, \hyperpage{2}
     \subitem \spxentry{CHF\_model\_api.optimizer}, \hyperpage{2}
-    \subitem \spxentry{CHF\_model\_api.tools}, \hyperpage{2}
-  \item \spxentry{MyModel}\spxextra{class in CHF\_model\_api.myModel}, \hyperpage{1}
+    \subitem \spxentry{CHF\_model\_api.tools}, \hyperpage{3}
+  \item \spxentry{MyModel}\spxextra{class in CHF\_model\_api.model}, \hyperpage{1}
   \item \spxentry{myMsle()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
   \item \spxentry{MyOptimizer}\spxextra{class in CHF\_model\_api.optimizer}, \hyperpage{2}
   \item \spxentry{MyTensorboard}\spxextra{class in CHF\_model\_api.myTensorboard}, \hyperpage{2}
@@ -90,32 +104,39 @@
 
   \indexspace
   \bigletter O
+  \item \spxentry{objective()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
+  \item \spxentry{opti\_hparams\_safe()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
   \item \spxentry{optimize\_my\_models()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
-		\hyperpage{2}
+		\hyperpage{3}
 
   \indexspace
   \bigletter P
-  \item \spxentry{plotResult()}\spxextra{CHF\_model\_api.myModel.MyModel method}, \hyperpage{1}
+  \item \spxentry{plotResult()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
   \item \spxentry{plotResults()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
 
   \indexspace
   \bigletter R
   \item \spxentry{remove\_backups()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
   \item \spxentry{RemoveDirectoryContent()}\spxextra{in module CHF\_model\_api.tools}, 
-		\hyperpage{2}
+		\hyperpage{3}
   \item \spxentry{reset\_directories()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
 
   \indexspace
   \bigletter S
-  \item \spxentry{save()}\spxextra{CHF\_model\_api.myModel.MyModel method}, \hyperpage{1}
+  \item \spxentry{save()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
   \item \spxentry{saveHparams()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
+  \item \spxentry{saveResults()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{1}
   \item \spxentry{set\_up\_directories()}\spxextra{CHF\_model\_api.myTensorboard.MyTensorboard method}, 
 		\hyperpage{2}
   \item \spxentry{stdMP()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
 
   \indexspace
   \bigletter T
-  \item \spxentry{train()}\spxextra{CHF\_model\_api.myModel.MyModel method}, \hyperpage{1}
+  \item \spxentry{train()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{2}
+  \item \spxentry{train\_and\_report()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}, 
+		\hyperpage{3}
 
   \indexspace
   \bigletter U
@@ -124,6 +145,6 @@
   \indexspace
   \bigletter V
   \item \spxentry{visualizeNn()}\spxextra{in module CHF\_model\_api.tools}, \hyperpage{3}
-  \item \spxentry{vizualize()}\spxextra{CHF\_model\_api.myModel.MyModel method}, \hyperpage{1}
+  \item \spxentry{vizualize()}\spxextra{CHF\_model\_api.model.MyModel method}, \hyperpage{2}
 
 \end{sphinxtheindex}

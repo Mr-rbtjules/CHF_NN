@@ -5,11 +5,18 @@ import os
 from scipy import interpolate
 import CHF_model_api as CHF
 from pathlib import Path
+from typing import List
+
+
+def testTools() -> bool:
+    "print 'package working' if the package is working"
+    print("package working")
+    return True
 
 ###JSON hparams###
 def getHparamsSavedModel(model_name: str) -> dict:                          
-    """return a dict with all the hyperparameters saved
-    in the directory hparams in saved_models"""
+    """return a dict with all the hyperparameters that were saved
+    in the directory hparams in the parent directory saved_models"""
     path = (Path(CHF.config.MODELS_DIR) / 
             f"hparams/{model_name}.json")
     
@@ -45,10 +52,9 @@ def plotResults(
         y_val: list, 
         save_fig: bool=False
 ) -> None:
-    """Plot the the graph of the predicted value in functino
+    """Plot the the graph of the predicted values in function
     of the measured values"""
     plt.figure()
-
     plt.plot(y_val, predictions, '.r', label='')
     plt.plot(y_val, y_val, 'b-', label='y=x')
     plt.xlabel('Measured')
@@ -60,7 +66,9 @@ def plotResults(
     plt.show()
     return None
 
-def utilsNnConfig(model) :
+def utilsNnConfig(model) -> List[dict]:
+    """used in the visualizeNn function to return the configs
+    of the model"""
     lst_layers = []
     if "Sequential" in str(model): #-> Sequential doesn't show the input layer
         layer = model.layers[0]
@@ -95,11 +103,10 @@ def utilsNnConfig(model) :
     return lst_layers
 
 
-
-
-
-def visualizeNn(model, name, description=False, figsize=(10,8)):
-    """Plot the structure of a keras neural network."""
+def visualizeNn(model, name, description=False, figsize=(10,8)) -> None:
+    """Plot the structure of a keras neural network.
+    visualize_nn(model, description=True, figsize=(100,100)) for
+    usage"""
     ## get layers info
     lst_layers = utilsNnConfig(model)
     layer_sizes = [layer["out"] for layer in lst_layers]
@@ -217,7 +224,8 @@ def visualizeNn(model, name, description=False, figsize=(10,8)):
     plt.savefig(path)
     print("Vizualisation saved in visuals directory")
     #plt.show()
-#visualize_nn(model, description=True, figsize=(100,100))
+    return None
+
     
 def RemoveDirectoryContent(directory_path) -> None:
     """just a function to clean when we want to reset"""
@@ -230,7 +238,7 @@ def RemoveDirectoryContent(directory_path) -> None:
             os.rmdir(dir_path)
 
 def remove_backups(name) -> None:
-
+    """remove all the saved models .h5 and hparams dict"""
     model_path = Path(CHF.config.MODELS_DIR) / f"models/{name}.h5"
     hparams_path = Path(CHF.config.MODELS_DIR) / f"hparams/{name}.json"
     os.remove(model_path)

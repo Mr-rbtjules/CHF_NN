@@ -7,7 +7,7 @@
 from . import tools
 from . import config
 
-from .myModel import MyModel
-from .myTensorboard import MyTensorboard
+from .model import MyModel
+from .tensorBoard import MyTensorboard
 from .optimizer import MyOptimizer
-from .myDataBase import MyDB
+from .dataBase import MyDB

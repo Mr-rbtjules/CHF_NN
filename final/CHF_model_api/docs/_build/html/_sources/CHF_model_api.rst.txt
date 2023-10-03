@@ -12,10 +12,10 @@ CHF\_model\_api.config module
    :undoc-members:
    :show-inheritance:
 
-CHF\_model\_api.myModel module
+CHF\_model\_api.model module
 ------------------------------
 
-.. automodule:: CHF_model_api.myModel
+.. automodule:: CHF_model_api.model
    :members:
    :undoc-members:
    :show-inheritance:

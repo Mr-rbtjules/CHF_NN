@@ -1,17 +1,22 @@
 \indexentry{module@\spxentry{module}!CHF\_model\_api.config@\spxentry{CHF\_model\_api.config}|hyperpage}{1}
 \indexentry{CHF\_model\_api.config@\spxentry{CHF\_model\_api.config}!module@\spxentry{module}|hyperpage}{1}
-\indexentry{module@\spxentry{module}!CHF\_model\_api.myModel@\spxentry{CHF\_model\_api.myModel}|hyperpage}{1}
-\indexentry{CHF\_model\_api.myModel@\spxentry{CHF\_model\_api.myModel}!module@\spxentry{module}|hyperpage}{1}
-\indexentry{MyModel (class in CHF\_model\_api.myModel)@\spxentry{MyModel}\spxextra{class in CHF\_model\_api.myModel}|hyperpage}{1}
-\indexentry{DATA (CHF\_model\_api.myModel.MyModel attribute)@\spxentry{DATA}\spxextra{CHF\_model\_api.myModel.MyModel attribute}|hyperpage}{1}
-\indexentry{displayPerf() (CHF\_model\_api.myModel.MyModel method)@\spxentry{displayPerf()}\spxextra{CHF\_model\_api.myModel.MyModel method}|hyperpage}{1}
-\indexentry{makeDataCopies() (CHF\_model\_api.myModel.MyModel class method)@\spxentry{makeDataCopies()}\spxextra{CHF\_model\_api.myModel.MyModel class method}|hyperpage}{1}
-\indexentry{makeRealPredictions() (CHF\_model\_api.myModel.MyModel method)@\spxentry{makeRealPredictions()}\spxextra{CHF\_model\_api.myModel.MyModel method}|hyperpage}{1}
-\indexentry{plotResult() (CHF\_model\_api.myModel.MyModel method)@\spxentry{plotResult()}\spxextra{CHF\_model\_api.myModel.MyModel method}|hyperpage}{1}
-\indexentry{save() (CHF\_model\_api.myModel.MyModel method)@\spxentry{save()}\spxextra{CHF\_model\_api.myModel.MyModel method}|hyperpage}{1}
-\indexentry{train() (CHF\_model\_api.myModel.MyModel method)@\spxentry{train()}\spxextra{CHF\_model\_api.myModel.MyModel method}|hyperpage}{1}
-\indexentry{vizualize() (CHF\_model\_api.myModel.MyModel method)@\spxentry{vizualize()}\spxextra{CHF\_model\_api.myModel.MyModel method}|hyperpage}{1}
-\indexentry{batch\_nrmse() (in module CHF\_model\_api.myModel)@\spxentry{batch\_nrmse()}\spxextra{in module CHF\_model\_api.myModel}|hyperpage}{1}
+\indexentry{module@\spxentry{module}!CHF\_model\_api.model@\spxentry{CHF\_model\_api.model}|hyperpage}{1}
+\indexentry{CHF\_model\_api.model@\spxentry{CHF\_model\_api.model}!module@\spxentry{module}|hyperpage}{1}
+\indexentry{MyModel (class in CHF\_model\_api.model)@\spxentry{MyModel}\spxextra{class in CHF\_model\_api.model}|hyperpage}{1}
+\indexentry{createNewModel() (CHF\_model\_api.model.MyModel method)@\spxentry{createNewModel()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{displayPerf() (CHF\_model\_api.model.MyModel method)@\spxentry{displayPerf()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{init\_callbacks() (CHF\_model\_api.model.MyModel method)@\spxentry{init\_callbacks()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{loadData() (CHF\_model\_api.model.MyModel method)@\spxentry{loadData()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{loadMyModel() (CHF\_model\_api.model.MyModel method)@\spxentry{loadMyModel()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{lrScheduler() (CHF\_model\_api.model.MyModel method)@\spxentry{lrScheduler()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{makeDataCopies() (CHF\_model\_api.model.MyModel class method)@\spxentry{makeDataCopies()}\spxextra{CHF\_model\_api.model.MyModel class method}|hyperpage}{1}
+\indexentry{makeRealPredictions() (CHF\_model\_api.model.MyModel method)@\spxentry{makeRealPredictions()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{plotResult() (CHF\_model\_api.model.MyModel method)@\spxentry{plotResult()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{save() (CHF\_model\_api.model.MyModel method)@\spxentry{save()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{saveResults() (CHF\_model\_api.model.MyModel method)@\spxentry{saveResults()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{1}
+\indexentry{train() (CHF\_model\_api.model.MyModel method)@\spxentry{train()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{2}
+\indexentry{vizualize() (CHF\_model\_api.model.MyModel method)@\spxentry{vizualize()}\spxextra{CHF\_model\_api.model.MyModel method}|hyperpage}{2}
+\indexentry{batch\_nrmse() (in module CHF\_model\_api.model)@\spxentry{batch\_nrmse()}\spxextra{in module CHF\_model\_api.model}|hyperpage}{2}
 \indexentry{module@\spxentry{module}!CHF\_model\_api.myTensorboard@\spxentry{CHF\_model\_api.myTensorboard}|hyperpage}{2}
 \indexentry{CHF\_model\_api.myTensorboard@\spxentry{CHF\_model\_api.myTensorboard}!module@\spxentry{module}|hyperpage}{2}
 \indexentry{MyTensorboard (class in CHF\_model\_api.myTensorboard)@\spxentry{MyTensorboard}\spxextra{class in CHF\_model\_api.myTensorboard}|hyperpage}{2}
@@ -29,14 +34,21 @@
 \indexentry{module@\spxentry{module}!CHF\_model\_api.optimizer@\spxentry{CHF\_model\_api.optimizer}|hyperpage}{2}
 \indexentry{CHF\_model\_api.optimizer@\spxentry{CHF\_model\_api.optimizer}!module@\spxentry{module}|hyperpage}{2}
 \indexentry{MyOptimizer (class in CHF\_model\_api.optimizer)@\spxentry{MyOptimizer}\spxextra{class in CHF\_model\_api.optimizer}|hyperpage}{2}
-\indexentry{optimize\_my\_models() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{optimize\_my\_models()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{2}
-\indexentry{module@\spxentry{module}!CHF\_model\_api.tools@\spxentry{CHF\_model\_api.tools}|hyperpage}{2}
-\indexentry{CHF\_model\_api.tools@\spxentry{CHF\_model\_api.tools}!module@\spxentry{module}|hyperpage}{2}
-\indexentry{RemoveDirectoryContent() (in module CHF\_model\_api.tools)@\spxentry{RemoveDirectoryContent()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{2}
-\indexentry{eraseHparams() (in module CHF\_model\_api.tools)@\spxentry{eraseHparams()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{2}
-\indexentry{extractFromPdf() (in module CHF\_model\_api.tools)@\spxentry{extractFromPdf()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{2}
-\indexentry{getHparamsSavedModel() (in module CHF\_model\_api.tools)@\spxentry{getHparamsSavedModel()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{2}
-\indexentry{loadData() (in module CHF\_model\_api.tools)@\spxentry{loadData()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
+\indexentry{access\_data\_index\_safe() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{access\_data\_index\_safe()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{2}
+\indexentry{make\_archi\_type() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_archi\_type()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{make\_around\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_around\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{make\_decreased\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_decreased\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{make\_increased\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_increased\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{make\_random\_archi() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{make\_random\_archi()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{objective() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{objective()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{opti\_hparams\_safe() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{opti\_hparams\_safe()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{optimize\_my\_models() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{optimize\_my\_models()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{train\_and\_report() (CHF\_model\_api.optimizer.MyOptimizer method)@\spxentry{train\_and\_report()}\spxextra{CHF\_model\_api.optimizer.MyOptimizer method}|hyperpage}{3}
+\indexentry{module@\spxentry{module}!CHF\_model\_api.tools@\spxentry{CHF\_model\_api.tools}|hyperpage}{3}
+\indexentry{CHF\_model\_api.tools@\spxentry{CHF\_model\_api.tools}!module@\spxentry{module}|hyperpage}{3}
+\indexentry{RemoveDirectoryContent() (in module CHF\_model\_api.tools)@\spxentry{RemoveDirectoryContent()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
+\indexentry{eraseHparams() (in module CHF\_model\_api.tools)@\spxentry{eraseHparams()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
+\indexentry{getHparamsSavedModel() (in module CHF\_model\_api.tools)@\spxentry{getHparamsSavedModel()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
 \indexentry{myMsle() (in module CHF\_model\_api.tools)@\spxentry{myMsle()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
 \indexentry{nrmse() (in module CHF\_model\_api.tools)@\spxentry{nrmse()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
 \indexentry{plotResults() (in module CHF\_model\_api.tools)@\spxentry{plotResults()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
@@ -46,5 +58,5 @@
 \indexentry{stdMP() (in module CHF\_model\_api.tools)@\spxentry{stdMP()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
 \indexentry{utilsNnConfig() (in module CHF\_model\_api.tools)@\spxentry{utilsNnConfig()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
 \indexentry{visualizeNn() (in module CHF\_model\_api.tools)@\spxentry{visualizeNn()}\spxextra{in module CHF\_model\_api.tools}|hyperpage}{3}
-\indexentry{module@\spxentry{module}!CHF\_model\_api@\spxentry{CHF\_model\_api}|hyperpage}{3}
-\indexentry{CHF\_model\_api@\spxentry{CHF\_model\_api}!module@\spxentry{module}|hyperpage}{3}
+\indexentry{module@\spxentry{module}!CHF\_model\_api@\spxentry{CHF\_model\_api}|hyperpage}{4}
+\indexentry{CHF\_model\_api@\spxentry{CHF\_model\_api}!module@\spxentry{module}|hyperpage}{4}

@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from CHF_model_api.config import TEST_DATA_PROPORTION, REMOVE_NEG_DHIN
 import os
 from scipy import interpolate
+from pathlib import Path
 
 
 class MyDB:
@@ -28,6 +29,14 @@ class MyDB:
 
         MyDB.AVAILABLE_DB.append(self)
 
+    def extractSortFromPdf(self,path) -> pd.DataFrame:
+        """create a csv file based on Groeneveld 2006 LUT pdf
+        take 2 min to run"""
+        self.extraction(path)
+        IS_data = self.ISUnitsTransformation()
+        sort = self.filtration(IS_data)
+        return sort
+
     def isCompatible(self, seed, input_number):
         if self.seed == seed and self.input_number == input_number:
             return True
@@ -43,10 +52,13 @@ class MyDB:
         predicting) and is meant to be add to DATA[seed] = {'validation':...}"""
         try:
             print("Load data from csv")
-            data = pd.read_csv(f"./csv_files/sort_data.csv") 
+            path = Path(CHF.config.CSV_DIR) / "sort_data.csv"
+            print(path)
+            data = pd.read_csv(path) 
         except:
             print("No csv found, extraction from LUT.pdf")
-            data = self.extractFromPdf("./pdf_files/LUT.pdf")                         
+            path = Path(CHF.config.PDF_DIR) / "LUT.pdf"
+            data = self.extractSortFromPdf(path)                         
         # Stratified Sampling 
 
         if REMOVE_NEG_DHIN:
@@ -101,9 +113,26 @@ class MyDB:
         }
         print(f"Data loaded seed: {data_seed}")
         return data
+
+    def normalizeData(self) -> None:
+        return None
+
     
-    def extractFromPdf(self,path) -> pd.DataFrame:
-        """create a csv file based on Groeneveld 2006 LUT pdf
+
+    def ISUnitsTransformation(self) -> pd.DataFrame:
+        """Convert the raw data in SI units and return """
+        path = Path(CHF.config.CSV_DIR) / "original_data.csv"
+        sort = pd.read_csv(path)
+        #SORT
+        #to SI units
+        sort['P'] = sort['P']*1000
+        sort['DHin'] = sort['DHin']*1000
+        sort['CHF'] = sort['CHF']*1000
+        sort['Tin'] = sort['Tin'] + 273.15
+        return sort
+    
+    def extraction(self, path) -> None:
+        """extract the data from pdf and put it in original_data.csv
         take 2 min to run"""
         all = tb.read_pdf(path, pages='all')
         ##start with the first page containing the header
@@ -145,16 +174,13 @@ class MyDB:
                 small_df = pd.DataFrame(np_data_page, columns =columns)
                 df = pd.concat([df,small_df], ignore_index=True)
         #save
-        df.to_csv("./csv_files/original_data.csv", index=False)
-        sort = pd.read_csv("./csv_files/original_data.csv")
-        #SORT
-        #to SI units
-        sort['P'] = sort['P']*1000
-        sort['DHin'] = sort['DHin']*1000
-        sort['CHF'] = sort['CHF']*1000
-        sort['Tin'] = sort['Tin'] + 273.15
+        output_path = Path(CHF.config.CSV_DIR) / "original_data.csv"
+        df.to_csv(output_path, index=False)
+        return None
 
-        #keep physical values
+    def filtration(self, sort: pd.DataFrame) -> pd.DataFrame:
+        """The dataframe is filtered in order to kick outliers and
+        nonsense values"""
         sort = sort.loc[sort['CHF'] > 0]
         sort = sort.loc[sort['Xchf'] < 1 ]
         sort = sort.loc[(sort['P'] <= 21000000) &  (sort['P'] >= 100000)]
@@ -166,9 +192,12 @@ class MyDB:
         sort = sort.loc[ ((sort['Xchf'] > 0) & ( sort['L/D']> 50))  
                         |  ((sort['Xchf'] < 0) & ( sort['L/D'] > 25))]
         #save
-        sort.to_csv('./csv_files/sort_data.csv')
-        data = pd.read_csv('./csv_files/sort_data.csv') 
+        path = Path(CHF.config.CSV_DIR) / "sort_data.csv"
+        sort.to_csv(path)
+        data = pd.read_csv(path) 
         return data
+
+    
 
     def getLUTPerformances(self) -> None:
         """lut interpolation"""

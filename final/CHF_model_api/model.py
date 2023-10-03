@@ -1,5 +1,5 @@
 import tensorflow as tf
-import pandas as pd
+import pandas as pd 
 from tensorflow.keras.models import Sequential #=regroupment of layers         
 # dense == tensor or layer or set of neurons of a same level
 # dropout = layer for regularisation
@@ -38,6 +38,7 @@ import random
 import time
 from datetime import datetime
 from typing import List
+from pathlib import Path
 import CHF_model_api as CHF
 
 
@@ -55,7 +56,9 @@ def batch_nrmse(y_true, y_pred) -> float:
 
 
 class MyModel:
-    """To complete"""
+    """class that either create a CHF prediction model from scratch using hparams
+        dictionnary or load a saved one from model_name from a .h5 file and his hp 
+        from json"""
     def __init__(
             self, 
             hparams:        dict = None,
@@ -63,9 +66,6 @@ class MyModel:
             auto_save:      bool = False,
             process_number: int = None
     ) ->None:
-        """either create a CHF prediction model from scratch using hparams
-        or load a saved one from model_name from a .h5 file and his hp 
-        from json"""
         #to auto save after training
         self.auto_save = auto_save
         self.hparams = hparams
@@ -92,7 +92,7 @@ class MyModel:
         self.process_number = process_number  
         self.data_base = None      
         #load hp and attributes
-        self._loadMyModel(model_name)
+        self.loadMyModel(model_name)
 
     ###PUBLIC METHOD###
     def train(
@@ -123,7 +123,7 @@ class MyModel:
             verbose=self.hparams['verbose']
         )
         self.hparams['trained_epochs'] += train_epochs
-        self._saveResults()
+        self.saveResults()
         #record result in hparams
         if self.auto_save:
             self.save(overwrite=True)
@@ -154,7 +154,7 @@ class MyModel:
             name = 'opti' + self.name
         self.hparams['name'] = self.name
         print("Save model ", self.name)
-        path = f"./saved_models/models/{name}.h5"
+        path = Path(CHF.config.MODELS_DIR) / f"models/{name}.h5"
         #save model.h5 (always with special metric or bug)
         with custom_object_scope({'batch_nrmse': batch_nrmse}):
             self.model.save(path)
@@ -163,7 +163,7 @@ class MyModel:
         return None
 
     def makeRealPredictions(self, features_data: list) -> list:
-        
+        """make CHF predicitons"""
         scaler = StandardScaler()
         scaler.mean_ = self.normalization_mean
         scaler.scale_ = self.normalization_std
@@ -189,7 +189,7 @@ class MyModel:
         return None
 
     ###PRIVATE METHOD###
-    def _loadMyModel(self, model_name: str)->None:
+    def loadMyModel(self, model_name: str)->None:
         """Create a model based on hparams given in parameterss
         or use a saved one based on his name and load it from saved_models
         directory set also all the attributes"""
@@ -202,9 +202,9 @@ class MyModel:
             #name-now for new/saved models ambiguity
             self.name = self.now
             print("Load new model: ", self.name)
-            self._createNewModel()   
+            self.createNewModel()   
         else:#model already existing
-            path = f"./saved_models/models/{model_name}.h5"
+            path = Path(CHF.config.MODELS_DIR) / f"models/{model_name}.h5"
             #load model from files alway with custom metric or bug
             with custom_object_scope({'batch_nrmse': batch_nrmse}):
                 self.model = load_model(path)
@@ -217,14 +217,14 @@ class MyModel:
         
         #make ready for train
         print("Model Loaded, init callbacks")
-        self.callbacks = self._init_callbacks()
+        self.callbacks = self.init_callbacks()
         #check if the corresponding vali/train set already computed
         #set it and the other attributes
-        self._loadData()
+        self.loadData()
         print("Model ready to train")
         return None
     
-    def _createNewModel(self) -> None:
+    def createNewModel(self) -> None:
         """create new model based on hparams"""
         #set a defined seed for the weights to be controlled
         #if we want to reproduce results
@@ -264,7 +264,7 @@ class MyModel:
         )
         return None
 
-    def _init_callbacks(self) -> list:
+    def init_callbacks(self) -> list:
         """action taken at evry epoch for monitoring"""
         early_stop = EarlyStopping(
             monitor='loss',          #loss easier to monitor because less variable
@@ -274,9 +274,9 @@ class MyModel:
             restore_best_weights=True
         )
         #schedule == function to give to LearningScheduler, with epoch and lr as param
-        learningRateScheduler = LearningRateScheduler(self._lrScheduler)
-        logdir = f"./logs/{self.name}"
-        tb_metrics = TensorBoard(logdir)
+        learningRateScheduler = LearningRateScheduler(self.lrScheduler)
+        path = Path(CHF.config.LOGS_DIR) / f"{self.name}"
+        tb_metrics = TensorBoard(path)
         return [early_stop, learningRateScheduler, tb_metrics]#tb tjrs en dernier
 
     def displayPerf(self):
@@ -287,7 +287,7 @@ class MyModel:
         print("standart deviation of 1 ratio measured/predicted",self.hparams['std_MP'])
         print("normalized root mean squared error",self.hparams['nrmse'])
 
-    def _saveResults(self) -> None:
+    def saveResults(self) -> None:
         """compute and save metrics in hparams"""
         #model.predict is a weird object
         predictions = np.array([i[0] for i in self.model.predict(self.X_val)])
@@ -330,7 +330,7 @@ class MyModel:
         self.hparams['nrmse'] = nrmse
         return None
 
-    def _loadData(self) -> None:
+    def loadData(self) -> None:
         """check if corresponding valid/train set already computed,
         if no compute and add the new data in DATA"""
         
@@ -363,7 +363,7 @@ class MyModel:
         return None
 
      # lr loose (1-expdecay)*100 % evry rythm epoch
-    def _lrScheduler(self, epoch: int, lr: float) ->float: 
+    def lrScheduler(self, epoch: int, lr: float) ->float: 
         """program a decrease of the learning rate"""
         if epoch % self.hparams['rythm'] == 0 and epoch > 0:
             return lr * self.hparams['learning_rate_decay']

@@ -38,63 +38,100 @@
 <section id="module-CHF_model_api.config">
 <span id="chf-model-api-config-module"></span><h2>CHF_model_api.config module<a class="headerlink" href="#module-CHF_model_api.config" title="Link to this heading">¶</a></h2>
 </section>
-<section id="module-CHF_model_api.myModel">
-<span id="chf-model-api-mymodel-module"></span><h2>CHF_model_api.myModel module<a class="headerlink" href="#module-CHF_model_api.myModel" title="Link to this heading">¶</a></h2>
+<section id="module-CHF_model_api.model">
+<span id="chf-model-api-model-module"></span><h2>CHF_model_api.model module<a class="headerlink" href="#module-CHF_model_api.model" title="Link to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CHF_model_api.myModel.</span></span><span class="sig-name descname"><span class="pre">MyModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hparams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.myModel.MyModel" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CHF_model_api.model.</span></span><span class="sig-name descname"><span class="pre">MyModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hparams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.model.MyModel" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.DATA">
-<span class="sig-name descname"><span class="pre">DATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#CHF_model_api.myModel.MyModel.DATA" title="Link to this definition">¶</a></dt>
-<dd><p>To complete</p>
+<p>class that either create a CHF prediction model from scratch using hparams
+dictionnary or load a saved one from model_name from a .h5 file and his hp 
+from json</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.createNewModel">
+<span class="sig-name descname"><span class="pre">createNewModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.createNewModel" title="Link to this definition">¶</a></dt>
+<dd><p>create new model based on hparams</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.displayPerf">
-<span class="sig-name descname"><span class="pre">displayPerf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.displayPerf" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.displayPerf">
+<span class="sig-name descname"><span class="pre">displayPerf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.model.MyModel.displayPerf" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.makeDataCopies">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeDataCopies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.makeDataCopies" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.init_callbacks">
+<span class="sig-name descname"><span class="pre">init_callbacks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.init_callbacks" title="Link to this definition">¶</a></dt>
+<dd><p>action taken at evry epoch for monitoring</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.loadData">
+<span class="sig-name descname"><span class="pre">loadData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.loadData" title="Link to this definition">¶</a></dt>
+<dd><p>check if corresponding valid/train set already computed,
+if no compute and add the new data in DATA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.loadMyModel">
+<span class="sig-name descname"><span class="pre">loadMyModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.loadMyModel" title="Link to this definition">¶</a></dt>
+<dd><p>Create a model based on hparams given in parameterss
+or use a saved one based on his name and load it from saved_models
+directory set also all the attributes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.lrScheduler">
+<span class="sig-name descname"><span class="pre">lrScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.lrScheduler" title="Link to this definition">¶</a></dt>
+<dd><p>program a decrease of the learning rate</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.makeDataCopies">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">makeDataCopies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jobs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.model.MyModel.makeDataCopies" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.makeRealPredictions">
-<span class="sig-name descname"><span class="pre">makeRealPredictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.makeRealPredictions" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.makeRealPredictions">
+<span class="sig-name descname"><span class="pre">makeRealPredictions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.makeRealPredictions" title="Link to this definition">¶</a></dt>
+<dd><p>make CHF predicitons</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.plotResult">
+<span class="sig-name descname"><span class="pre">plotResult</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.plotResult" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.plotResult">
-<span class="sig-name descname"><span class="pre">plotResult</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.plotResult" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.save" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.save" title="Link to this definition">¶</a></dt>
 <dd><p>save model in .h5 format, to make predictions
 save also the hparams of the model in json files</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.train" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.saveResults">
+<span class="sig-name descname"><span class="pre">saveResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.saveResults" title="Link to this definition">¶</a></dt>
+<dd><p>compute and save metrics in hparams</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.train" title="Link to this definition">¶</a></dt>
 <dd><p>train the model over train_epochs epochs and save
 the results in the attribute hparams</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.MyModel.vizualize">
-<span class="sig-name descname"><span class="pre">vizualize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.myModel.MyModel.vizualize" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.MyModel.vizualize">
+<span class="sig-name descname"><span class="pre">vizualize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.model.MyModel.vizualize" title="Link to this definition">¶</a></dt>
 <dd><p>save a png file containing vizual rpz of the network</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="CHF_model_api.myModel.batch_nrmse">
-<span class="sig-prename descclassname"><span class="pre">CHF_model_api.myModel.</span></span><span class="sig-name descname"><span class="pre">batch_nrmse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#CHF_model_api.myModel.batch_nrmse" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="CHF_model_api.model.batch_nrmse">
+<span class="sig-prename descclassname"><span class="pre">CHF_model_api.model.</span></span><span class="sig-name descname"><span class="pre">batch_nrmse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#CHF_model_api.model.batch_nrmse" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
@@ -134,7 +171,7 @@ to the same directories in ./hparams_tuning/sessionname</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="CHF_model_api.myTensorboard.MyTensorboard.init_models">
-<span class="sig-name descname"><span class="pre">init_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CHF_model_api.myModel.MyModel" title="CHF_model_api.myModel.MyModel"><span class="pre">MyModel</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CHF_model_api.myTensorboard.MyTensorboard.init_models" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">init_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CHF_model_api.model.MyModel" title="CHF_model_api.model.MyModel"><span class="pre">MyModel</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CHF_model_api.myTensorboard.MyTensorboard.init_models" title="Link to this definition">¶</a></dt>
 <dd><p>get the saved models by creating object my_models
 based on the name of the saved models</p>
 </dd></dl>
@@ -175,9 +212,59 @@ a directory for each different model (with diff hp)</p>
 <dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CHF_model_api.optimizer.</span></span><span class="sig-name descname"><span class="pre">MyOptimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generic_hparams</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_architecture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_dropout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_learning_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_lr_decrease</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_optimizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_activation_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mpe'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class create an optimizer for hyperparameter
+of deep neural network to predict CHF using 
+mainly optuna library</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.access_data_index_safe">
+<span class="sig-name descname"><span class="pre">access_data_index_safe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.access_data_index_safe" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.make_archi_type">
+<span class="sig-name descname"><span class="pre">make_archi_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_hparams</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.make_archi_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.make_around_archi">
+<span class="sig-name descname"><span class="pre">make_around_archi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opti_hparams</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.make_around_archi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.make_decreased_archi">
+<span class="sig-name descname"><span class="pre">make_decreased_archi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.make_decreased_archi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.make_increased_archi">
+<span class="sig-name descname"><span class="pre">make_increased_archi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.make_increased_archi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.make_random_archi">
+<span class="sig-name descname"><span class="pre">make_random_archi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.make_random_archi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.objective">
+<span class="sig-name descname"><span class="pre">objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.objective" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.opti_hparams_safe">
+<span class="sig-name descname"><span class="pre">opti_hparams_safe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.opti_hparams_safe" title="Link to this definition">¶</a></dt>
+<dd><p>Return safely the guess optimized of ,
+the hparameters and the epochs number</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.optimize_my_models">
 <span class="sig-name descname"><span class="pre">optimize_my_models</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.optimize_my_models" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CHF_model_api.optimizer.MyOptimizer.train_and_report">
+<span class="sig-name descname"><span class="pre">train_and_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.optimizer.MyOptimizer.train_and_report" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -198,29 +285,10 @@ a directory for each different model (with diff hp)</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="CHF_model_api.tools.extractFromPdf">
-<span class="sig-prename descclassname"><span class="pre">CHF_model_api.tools.</span></span><span class="sig-name descname"><span class="pre">extractFromPdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#CHF_model_api.tools.extractFromPdf" title="Link to this definition">¶</a></dt>
-<dd><p>create a csv file based on Groeneveld 2006 LUT pdf
-take 2 min to run</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="CHF_model_api.tools.getHparamsSavedModel">
 <span class="sig-prename descclassname"><span class="pre">CHF_model_api.tools.</span></span><span class="sig-name descname"><span class="pre">getHparamsSavedModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#CHF_model_api.tools.getHparamsSavedModel" title="Link to this definition">¶</a></dt>
 <dd><p>return a dict with all the hyperparameters saved
 in the directory hparams in saved_models</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="CHF_model_api.tools.loadData">
-<span class="sig-prename descclassname"><span class="pre">CHF_model_api.tools.</span></span><span class="sig-name descname"><span class="pre">loadData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#CHF_model_api.tools.loadData" title="Link to this definition">¶</a></dt>
-<dd><p>take the data from a csv containing data SI units
-or create it from the Groeneveld 2006 LUT pdf
-return a dict containing the keys:
-‘validation_targets’, ‘validation_features’,’training_features’
-‘training_targets’, ‘mean’ ‘std’(mean and std of the 
-training_features before normalization we need to keep when
-predicting) and is meant to be add to DATA[seed] = {‘validation’:…}</p>
 </dd></dl>
 
 <dl class="py function">
@@ -237,8 +305,10 @@ predicting) and is meant to be add to DATA[seed] = {‘validation’:…}</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="CHF_model_api.tools.plotResults">
-<span class="sig-prename descclassname"><span class="pre">CHF_model_api.tools.</span></span><span class="sig-name descname"><span class="pre">plotResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CHF_model_api.tools.plotResults" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">CHF_model_api.tools.</span></span><span class="sig-name descname"><span class="pre">plotResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#CHF_model_api.tools.plotResults" title="Link to this definition">¶</a></dt>
+<dd><p>Plot the the graph of the predicted value in functino
+of the measured values</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="CHF_model_api.tools.remove_backups">

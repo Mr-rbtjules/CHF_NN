@@ -4,7 +4,7 @@ if __name__ == '__main__':
     
     
     #print(CHF.tools.lutInterpolation())
-    db = CHF.MyDB()
-
+    model = CHF.MyModel(model_name='20230804-190544')
+    model.plotResult()
     
 

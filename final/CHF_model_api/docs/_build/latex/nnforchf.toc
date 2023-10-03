@@ -3,11 +3,11 @@
 \contentsline {section}{\numberline {1.1}CHF\_model\_api package}{1}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Submodules}{1}{subsection.1.1.1}%
 \contentsline {subsection}{\numberline {1.1.2}CHF\_model\_api.config module}{1}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}CHF\_model\_api.myModel module}{1}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.3}CHF\_model\_api.model module}{1}{subsection.1.1.3}%
 \contentsline {subsection}{\numberline {1.1.4}CHF\_model\_api.myTensorboard module}{2}{subsection.1.1.4}%
 \contentsline {subsection}{\numberline {1.1.5}CHF\_model\_api.optimizer module}{2}{subsection.1.1.5}%
-\contentsline {subsection}{\numberline {1.1.6}CHF\_model\_api.tools module}{2}{subsection.1.1.6}%
-\contentsline {subsection}{\numberline {1.1.7}Module contents}{3}{subsection.1.1.7}%
+\contentsline {subsection}{\numberline {1.1.6}CHF\_model\_api.tools module}{3}{subsection.1.1.6}%
+\contentsline {subsection}{\numberline {1.1.7}Module contents}{4}{subsection.1.1.7}%
 \contentsline {chapter}{\numberline {2}Indices and tables}{5}{chapter.2}%
-\contentsline {chapter}{Python Module Index}{7}{section*.41}%
-\contentsline {chapter}{Index}{9}{section*.42}%
+\contentsline {chapter}{Python Module Index}{7}{section*.53}%
+\contentsline {chapter}{Index}{9}{section*.54}%
