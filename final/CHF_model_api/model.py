@@ -338,7 +338,7 @@ class MyModel:
         input_nb = self.input_number
         if self.process_number == None:
             for db in CHF.MyDB.getAvailableDataBases():
-                if db.isCompatible(seed, input_nb):
+                if db.isCompatible(self):
                     self.data_base = db
             if self.data_base == None:
                 self.data_base = CHF.MyDB(seed,input_nb)

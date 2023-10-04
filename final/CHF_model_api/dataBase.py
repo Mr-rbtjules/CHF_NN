@@ -1,12 +1,15 @@
 import CHF_model_api as CHF
-import pandas as pd
+import pandas
 import numpy as np
 import tabula as tb
 from sklearn.preprocessing import StandardScaler
 from CHF_model_api.config import TEST_DATA_PROPORTION, REMOVE_NEG_DHIN
 import os
 from scipy import interpolate
+from scipy.interpolate import LinearNDInterpolator
 from pathlib import Path
+from typing import List
+
 
 
 class MyDB:
@@ -19,17 +22,54 @@ class MyDB:
 
     def __init__(
             self,
-            seed:            int = None,
+            seed:            int = 1,
             input_number:    int = 4,
+            interpolation:   bool = False
     ) -> None:
         self.seed = seed
         self.input_number = input_number
         self.associeted_models = []#useful?
         self.data = self.loadData(seed, input_number)
-
+        if interpolation:
+            self.interp_func = self.getInterpFunction()
         MyDB.AVAILABLE_DB.append(self)
 
-    def extractSortFromPdf(self,path) -> pd.DataFrame:
+    def interpolate(self, X_list) -> float:
+        """allow to use the LUT interpolated function
+        input : [LD,P,G,Xchf]"""
+        point = self.data['validation_features'][0]
+        
+        scaler = StandardScaler()
+        scaler.mean_ = self.data['mean']
+        scaler.scale_ = self.data['std']
+        normalized_data = scaler.transform(X_list)
+        unorm = scaler.inverse_transform([point])
+        print("point norm de data : ", point)
+        print("version non norm :" ,unorm)
+        print("X_list", X_list)
+        print("la on verifie que coherent")
+        print("inter X= ", self.interp_func(normalized_data))
+        print("inter pointdata" , self.interp_func(point))
+        print("COmpare avec grid", interpolate.griddata(
+            self.data['train_features'],
+            self.data['train_targets'],
+            normalized_data,
+            method='linear'
+        ))
+        return None #self.interp_func(normalized_data)
+
+    def getInterpFunction(self) -> LinearNDInterpolator:
+        """return the linear interpolator object/function"""
+        print("Creation of the interpolation function of LUT")
+        X_train = self.data['train_features']
+        y_train = self.data['train_targets']
+        fun = LinearNDInterpolator(
+            X_train,
+            y_train
+        )
+        return fun
+
+    def extractSortFromPdf(self,path) -> pandas.DataFrame:
         """create a csv file based on Groeneveld 2006 LUT pdf
         take 2 min to run"""
         self.extraction(path)
@@ -37,40 +77,22 @@ class MyDB:
         sort = self.filtration(IS_data)
         return sort
 
-    def isCompatible(self, seed, input_number):
+    def isCompatible(self, model: CHF.MyModel) -> bool:
+        """return True if the database can be used for training a model
+        based"""
+        seed = model.hparams['seed']
+        input_number = model.hparams['input_nb']
         if self.seed == seed and self.input_number == input_number:
             return True
         return False
 
-    def loadData(self, data_seed: int = 1, input_number: int = 5) -> dict:
-        """take the data from a csv containing data in IS units
-        or create it from the Groeneveld 2006 LUT pdf
-        return a dict containing the keys:
-        'validation_targets', 'validation_features','training_features'
-        'training_targets', 'mean' 'std'(mean and std of the 
-        training_features before normalization we need to keep when
-        predicting) and is meant to be add to DATA[seed] = {'validation':...}"""
-        try:
-            print("Load data from csv")
-            path = Path(CHF.config.CSV_DIR) / "sort_data.csv"
-            print(path)
-            data = pd.read_csv(path) 
-        except:
-            print("No csv found, extraction from LUT.pdf")
-            path = Path(CHF.config.PDF_DIR) / "LUT.pdf"
-            data = self.extractSortFromPdf(path)                         
-        # Stratified Sampling 
-
-        if REMOVE_NEG_DHIN:
-            print("Remove negative DHIN")
-            data = data.loc[(data['DHin'] > 0)]
-        validation_data = data.groupby('CHF').apply(
-            lambda x: x.sample(frac=TEST_DATA_PROPORTION, random_state=data_seed)
-        ).droplevel(0).sample(frac=1, random_state=(data_seed+10)) #+10 jut to be different than seed_ss
-        training_data = data.drop(
-            validation_data.index
-        ).sample(frac=1, random_state=(data_seed+20))
-
+    def makeDictDatabase(
+        self, 
+        input_number:    int, 
+        training_data:   pandas.DataFrame,
+        validation_data: pandas.DataFrame
+    ) -> dict:
+        """select the desired data features tu put it in a dict """
         #inputs = X,L/D,P, G, DHin
         LD = training_data.iloc[:, 9].values
         Xchf = training_data.iloc[:, 5].values
@@ -83,6 +105,7 @@ class MyDB:
         DH_val = validation_data.iloc[:, 6].values
         P_val = validation_data.iloc[:, 3].values
         G_val = validation_data.iloc[:, 4].values
+
         if input_number == 5:
             #add up all the necessary colomns toegether
             X_train = np.column_stack((LD,P,G,Xchf,DH))
@@ -94,35 +117,78 @@ class MyDB:
             
         y_val = validation_data.iloc[:, 7].values
         y_train = training_data.iloc[:, 7].values
-        # normalisation std  only training features
-        scaler = StandardScaler()
-        X_train = scaler.fit_transform(X_train)
-        #then use the normalisation of the first set
-        X_val = scaler.transform(X_val)
-        ##import to save bc use it when want to predict
-        #array each value correspond mean of 1 features
-        mean_value = scaler.mean_
-        std_deviation = scaler.scale_
         data = {
             'validation_targets': y_val,
             'validation_features': X_val,
             'train_features': X_train,
             'train_targets': y_train,
-            'mean': mean_value,
-            'std': std_deviation
+            'mean': 0,
+            'std': 0
         }
+        return data
+
+
+    def loadData(self, data_seed: int = 1, input_number: int = 5) -> dict:
+        """take the data from a csv containing data in IS units
+        or create it from the Groeneveld 2006 LUT pdf
+        return a dict containing the keys:
+        'validation_targets', 'validation_features','training_features'
+        'training_targets', 'mean' 'std'(mean and std of the 
+        training_features before normalization we need to keep when
+        predicting) and is meant to be add to DATA[seed] = {'validation':...}"""
+        try:
+            print("Load data from csv")
+            path = Path(CHF.config.CSV_DIR) / "sort_data.csv"
+            data = pandas.read_csv(path) 
+        except:
+            print("No csv found, extraction from LUT.pdf")
+            path = Path(CHF.config.PDF_DIR) / "LUT.pdf"
+            data = self.extractSortFromPdf(path)                         
+        # Stratified Sampling 
+
+        if REMOVE_NEG_DHIN:
+            print("Remove negative DHIN")
+            data = data.loc[(data['DHin'] > 0)]
+
+        validation_data = data.groupby('CHF').apply(
+            lambda x: x.sample(frac=TEST_DATA_PROPORTION, random_state=data_seed)
+        ).droplevel(0).sample(frac=1, random_state=(data_seed+10)) #+10 jut to be different than seed_ss
+        training_data = data.drop(
+            validation_data.index
+        ).sample(frac=1, random_state=(data_seed+20))
+
+        data = self.makeDictDatabase(
+            input_number,
+            training_data,
+            validation_data
+        )
+        data = self.normalizeData(data)
         print(f"Data loaded seed: {data_seed}")
         return data
 
-    def normalizeData(self) -> None:
-        return None
+    def normalizeData(self, data: dict) -> dict:
+        """take the dict with the data and return it
+        normalized"""
+        # normalisation std  only training features
+        scaler = StandardScaler()
+        data['train_features'] = scaler.fit_transform(
+            data['train_features']
+        )
+        #then use the normalisation of the first set
+        data['validation_features'] = scaler.transform(
+            data['validation_features']
+        )
+        ##import to save bc use it when want to predict
+        #array each value correspond mean of 1 features
+        data['mean'] = scaler.mean_
+        data['std'] = scaler.scale_
+        return data
 
-    
 
-    def ISUnitsTransformation(self) -> pd.DataFrame:
+    def ISUnitsTransformation(self) -> pandas.DataFrame:
         """Convert the raw data in SI units and return """
         path = Path(CHF.config.CSV_DIR) / "original_data.csv"
-        sort = pd.read_csv(path)
+        sort = pandas.read_csv(path)
         #SORT
         #to SI units
         sort['P'] = sort['P']*1000
@@ -171,14 +237,14 @@ class MyDB:
                                 rest[i][j] = rest[i][j][:-2]
                             rest[i][j] = float(rest[i][j])
                 np_data_page = np.concatenate((first_row, rest))
-                small_df = pd.DataFrame(np_data_page, columns =columns)
-                df = pd.concat([df,small_df], ignore_index=True)
+                small_df = pandas.DataFrame(np_data_page, columns =columns)
+                df = pandas.concat([df,small_df], ignore_index=True)
         #save
         output_path = Path(CHF.config.CSV_DIR) / "original_data.csv"
         df.to_csv(output_path, index=False)
         return None
 
-    def filtration(self, sort: pd.DataFrame) -> pd.DataFrame:
+    def filtration(self, sort: pandas.DataFrame) -> pandas.DataFrame:
         """The dataframe is filtered in order to kick outliers and
         nonsense values"""
         sort = sort.loc[sort['CHF'] > 0]
@@ -194,20 +260,21 @@ class MyDB:
         #save
         path = Path(CHF.config.CSV_DIR) / "sort_data.csv"
         sort.to_csv(path)
-        data = pd.read_csv(path) 
+        data = pandas.read_csv(path) 
         return data
 
     
-
     def getLUTPerformances(self) -> None:
-        """lut interpolation"""
+        """print lut performances"""
         y_val = self.data['validation_targets']
         X_val = self.data['validation_features']
         X_train = self.data['train_features']
         y_train = self.data['train_targets']
 
         predicted_y_val = interpolate.griddata(X_train, y_train, X_val, method='linear')
-
+        #other = LinearNDInterpolator(X_train,y_train)
+        
+        
         # Identify non-nan indices (i.e., points inside the convex hull)
         inside_hull_indices = ~np.isnan(predicted_y_val)
 
@@ -230,7 +297,7 @@ class MyDB:
         print('msle ',CHF.tools.myMsle(filtered_y_val, filtered_predicted_y_val))       
             
     @classmethod
-    def getAvailableDataBases(cls) -> list:
+    def getAvailableDataBases(cls) -> List['MyDB']:
         return cls.AVAILABLE_DB
 
 
