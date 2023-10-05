@@ -49,7 +49,8 @@ class MyOptimizer:
         self.jobs = jobs
         #nb of diff guess for 1 process
         self.trials = trials
-        self.seed = 1
+        self.seed = generic_hparams['data_seed']
+        self.input_nb = generic_hparams['input_number']
         #range of guess
         self.dropout_range = [0.32,0.35]
         self.learning_range = [0.003, 0.004]
@@ -65,17 +66,19 @@ class MyOptimizer:
         #locks for multiprocessing data access of optuna objective function
         #1 lock for each set of data shared between processes
         self.locks = [multiprocessing.Lock() for _ in range(jobs)]
+        self.databases = [ CHF.MyDB(
+            seed=self.seed, 
+            input_number=self.input_nb
+        ) for _ in range(jobs)]
         #lock for the list of locks
         self.lock_locks = multiprocessing.Lock()
         #to have access to the attributes
         self.lock_attributes = multiprocessing.Lock()
 
-        self.input_nb = generic_hparams['input_number']
         self.output_nb = 1
         self.generic_hparams = generic_hparams
         self.verbose = verbose
         #initialise the different copies needed (one for each job/process)
-        CHF.MyModel.makeDataCopies(self.jobs,self.seed, self.input_nb)
 
     ###PUBLIC METHOD###
     def optimize_my_models(self):
@@ -86,7 +89,6 @@ class MyOptimizer:
         studies = []
         #division in process , sharing 1 same database
         for _ in range(self.jobs):
-            #
             study = optuna.create_study(
                 direction="minimize", 
                 storage=db_path
@@ -115,7 +117,6 @@ class MyOptimizer:
         return best_params
 
     ###PRIVATE METHOD###
-
 
     def objective(self,trial): 
         opti_hparams = self.opti_hparams_safe(trial)
@@ -181,8 +182,8 @@ class MyOptimizer:
         epoch = 0
         while epoch < epochs:
             model.train(logs=False, callbacks=False, train_epochs=steps)
-            metric = model.hparams[model.hparams['metric_name']]#*0.5 +  model.hparams['nrmse']*0.5 
-            
+            metric = model.hparams[model.hparams['metric_name']]
+            #*0.5 +  model.hparams['nrmse']*0.5  if we want to weights metrics
             
             if model.hparams['mape'] < 10 or model.hparams['msle'] < 0.02:
                 if model.name == model.now:#encore jamais save
@@ -229,18 +230,17 @@ class MyOptimizer:
         
 
     def opti_hparams_safe(self, trial)-> dict:
-        """Return safely the guess optimized of ,
+        """Return safely the guess optimized of ,                              
         the hparameters and the epochs number"""
         learning_rate = None
         dropout_rate = None
-        opti_hparams = None
-
-        with self.lock_attributes: #gain access to the attributes of the class optimizer (all the configs)
+        opti_hparams = None                                                    
+        #gain access to the attributes of the class optimizer (all the configs)
+        with self.lock_attributes: 
             print("get attribute access")
             opti_hparams = copy.deepcopy(self.generic_hparams)
             
-            
-                ##archi guess###
+            ##archi guess###
             if self.opti_archirecture:
                 opti_hparams['architecture'] = self.make_archi_type(
                     trial, 

@@ -37,26 +37,12 @@ class MyDB:
     def interpolate(self, X_list) -> float:
         """allow to use the LUT interpolated function
         input : [LD,P,G,Xchf]"""
-        point = self.data['validation_features'][0]
         
         scaler = StandardScaler()
         scaler.mean_ = self.data['mean']
         scaler.scale_ = self.data['std']
         normalized_data = scaler.transform(X_list)
-        unorm = scaler.inverse_transform([point])
-        print("point norm de data : ", point)
-        print("version non norm :" ,unorm)
-        print("X_list", X_list)
-        print("la on verifie que coherent")
-        print("inter X= ", self.interp_func(normalized_data))
-        print("inter pointdata" , self.interp_func(point))
-        print("COmpare avec grid", interpolate.griddata(
-            self.data['train_features'],
-            self.data['train_targets'],
-            normalized_data,
-            method='linear'
-        ))
-        return None #self.interp_func(normalized_data)
+        return self.interp_func(normalized_data)
 
     def getInterpFunction(self) -> LinearNDInterpolator:
         """return the linear interpolator object/function"""
@@ -80,8 +66,8 @@ class MyDB:
     def isCompatible(self, model: CHF.MyModel) -> bool:
         """return True if the database can be used for training a model
         based"""
-        seed = model.hparams['seed']
-        input_number = model.hparams['input_nb']
+        seed = model.hparams['data_seed']
+        input_number = model.hparams['input_number']
         if self.seed == seed and self.input_number == input_number:
             return True
         return False

@@ -34,6 +34,8 @@ from tensorflow.keras.utils import custom_object_scope
 #to normalize input
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+import matplotlib.pyplot as plt
+
 import random
 import time
 from datetime import datetime
@@ -56,9 +58,9 @@ def batch_nrmse(y_true, y_pred) -> float:
 
 
 class MyModel:
-    """class that either create a CHF prediction model from scratch using hparams
-        dictionnary or load a saved one from model_name from a .h5 file and his hp 
-        from json"""
+    """class that either create a CHF prediction model from scratch
+    using hparams dictionnary or load a saved one from model_name 
+    from a .h5 file and his hp from json"""
     def __init__(
             self, 
             hparams:        dict = None,
@@ -90,9 +92,10 @@ class MyModel:
         self.monitor_param = 'loss'
         self.other_metrics = ['mape', batch_nrmse]
         self.process_number = process_number  
-        self.data_base = None      
+        self.data_base = None  
+        self.train_history = None    
         #load hp and attributes
-        self.loadMyModel(model_name)
+        self.loadMyModel(model_name)                                           
 
     ###PUBLIC METHOD###
     def train(
@@ -127,6 +130,7 @@ class MyModel:
         #record result in hparams
         if self.auto_save:
             self.save(overwrite=True)
+        self.train_history = history
         return history 
 
     def save(self, overwrite=False)->None: 
@@ -168,7 +172,9 @@ class MyModel:
         scaler.mean_ = self.normalization_mean
         scaler.scale_ = self.normalization_std
         normalized_data = scaler.transform(features_data)
-        predictions = np.array([i[0] for i in self.model.predict(normalized_data)])
+        predictions = np.array(
+            [i[0] for i in self.model.predict(normalized_data)]
+        )
         print("Prediction of the CHF: ",predictions)
         return predictions
         
@@ -246,7 +252,8 @@ class MyModel:
                 self.actMethod(self.hparams['alpha_acti'])
             ))
             if layer != len(architecture[1:]) - 1 :
-                #layer of normalisation of the batch to keep correct values, help generalize
+                #layer of normalisation of the batch to keep correct
+                #  values, help generalize
                 if self.hparams['batch_normalisation'] == True:
                     self.model.add(BatchNormalization())  
             if layer == 0 or layer == 1:
@@ -267,25 +274,57 @@ class MyModel:
     def init_callbacks(self) -> list:
         """action taken at evry epoch for monitoring"""
         early_stop = EarlyStopping(
-            monitor='loss',          #loss easier to monitor because less variable
-            min_delta=self.hparams['loss_delta_stop'],   #if nothing precise, it will check loss and stop after no change of >=0.1
+            #loss easier to monitor because less variable
+            monitor='loss',         
+            #if nothing precise, it will check loss and stop after
+            #  no change of >=0.1 
+            min_delta=self.hparams['loss_delta_stop'],   
             patience=self.hparams['patience'], 
             verbose=1,
             restore_best_weights=True
         )
-        #schedule == function to give to LearningScheduler, with epoch and lr as param
+        #schedule == function to give to LearningScheduler, with epoch
+        #  and lr as param
         learningRateScheduler = LearningRateScheduler(self.lrScheduler)
         path = Path(CHF.config.LOGS_DIR) / f"{self.name}"
         tb_metrics = TensorBoard(path)
-        return [early_stop, learningRateScheduler, tb_metrics]#tb tjrs en dernier
+        #tb tjrs en dernier
+        return [early_stop, learningRateScheduler, tb_metrics]
 
     def displayPerf(self):
         print("mean absolute percent error : ",self.hparams['mape'])
         print("mean square logarithmic error", self.hparams['msle'])
         print("mean percent error", self.hparams['mpe'])
         print("mean ratio measured/predicted", self.hparams['mean_MP'])
-        print("standart deviation of 1 ratio measured/predicted",self.hparams['std_MP'])
+        print(
+            "standart deviation of 1 ratio measured/predicted",
+            self.hparams['std_MP']
+        )
         print("normalized root mean squared error",self.hparams['nrmse'])
+
+    def plotLoss(self, save=False) -> None:
+        """Plot the loss and validation loss to see if overfitting"""
+
+        # Get the loss history from the model training
+        if self.train_history == None:
+            print("No training yet, no Loss graph")
+            return None
+        training_loss = self.train_history.history['loss']
+        validation_loss = self.train_history.history['val_loss']
+
+        # Plot the loss curves
+        epochs = range(1, len(training_loss) + 1)
+        plt.semilogy(epochs, training_loss, 'b-', label='Training Loss')
+        plt.semilogy(epochs, validation_loss, 'r-', label='Validation Loss')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.xticks(rotation=45)
+        if save:
+            path = Path(CHF.config.VISU_DIR) / f"{self.name}.png"
+            plt.savefig(path)
+        plt.show()
+        return None
 
     def saveResults(self) -> None:
         """compute and save metrics in hparams"""
@@ -299,15 +338,14 @@ class MyModel:
         #else:
          #   mpe = 100
     
-        mape = ((np.sum(np.abs(self.y_val - predictions) / self.y_val)) /len(self.y_val)) * 100
+        mape = ((np.sum(np.abs(self.y_val - predictions) / self.y_val))
+                 /len(self.y_val)) * 100
         print("mean absolute percent error  : ", mape)
 
-        mpe = ((np.sum((predictions-self.y_val) / self.y_val)) /len(self.y_val)) * 100
-
-        
+        mpe = ((np.sum((predictions-self.y_val) / self.y_val))
+                /len(self.y_val)) * 100
 
         print("mean percent error  : ", mpe)
-
         #mean of ration measured/predict
         if predictions.all() != 0:
             mean_MP = np.mean(self.y_val/predictions)
@@ -342,24 +380,18 @@ class MyModel:
                     self.data_base = db
             if self.data_base == None:
                 self.data_base = CHF.MyDB(seed,input_nb)
-
-            self.X_val = self.data_base.data['validation_features']
-            self.y_val = self.data_base.data['validation_targets']
-            self.X_train = self.data_base.data['train_features']
-            self.y_train = self.data_base.data['train_targets']
-            self.normalization_mean = self.data_base.data['mean'].tolist()
-            self.normalization_std = self.data_base.data['std'].tolist()
-
-            self.hparams['normalization_mean'] = self.normalization_mean
-            self.hparams['normalization_std'] = self.normalization_std
-        ##optimize several process part
         else:
-            key = f'copy {self.process_number} input_number ' \
-                    f'{self.input_number} seed {seed}'
-            if key not in MyModel.DATA.keys():
-                Exception("error no copy _load_data prblm")
+            self.data_base = CHF.MyDB.AVAILABLE_DB[self.process_number]
 
-        
+        self.X_val = self.data_base.data['validation_features']
+        self.y_val = self.data_base.data['validation_targets']
+        self.X_train = self.data_base.data['train_features']
+        self.y_train = self.data_base.data['train_targets']
+        self.normalization_mean = self.data_base.data['mean'].tolist()
+        self.normalization_std = self.data_base.data['std'].tolist()
+
+        self.hparams['normalization_mean'] = self.normalization_mean
+        self.hparams['normalization_std'] = self.normalization_std
         return None
 
      # lr loose (1-expdecay)*100 % evry rythm epoch
@@ -373,8 +405,9 @@ class MyModel:
 
     ###CLASS METHOD###
     #2 things set up in the class for process, here and in _load_data
-    @classmethod
-    def makeDataCopies(cls, jobs, seed, input_number):#must not be called in this class
+    #must not be called in this class
+"""@classmethod
+    def makeDataCopies(cls, jobs, seed, input_number):
         #check first if origin exist   
         key1 = f"input_number {input_number} seed {seed}"
         if key1 not in cls.DATA.keys():
@@ -405,4 +438,4 @@ class MyModel:
                     cls.DATA[key1]['std']
                 )
             print(f"add {key2} to DATA")
-            
+""" 
