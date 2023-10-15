@@ -280,7 +280,8 @@ class MyDB:
             print(mean_MP)      
         print('stdMp : ',CHF.tools.stdMP(filtered_y_val, filtered_predicted_y_val))
         print('nrmse ',CHF.tools.nrmse(filtered_y_val, filtered_predicted_y_val))
-        print('msle ',CHF.tools.myMsle(filtered_y_val, filtered_predicted_y_val))       
+        print('msle ',CHF.tools.myMsle(filtered_y_val, filtered_predicted_y_val)) 
+        CHF.tools.plotResults(filtered_predicted_y_val, filtered_y_val)
             
     @classmethod
     def getAvailableDataBases(cls) -> List['MyDB']:

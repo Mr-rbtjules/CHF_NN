@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CHF_model_api &#8212; NN for CHF prediction  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CHF_model_api package" href="CHF_model_api.html" />
+    <link rel="prev" title="Welcome to NN for CHF prediction’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="chf-model-api">
+<h1>CHF_model_api<a class="headerlink" href="#chf-model-api" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CHF_model_api.html">CHF_model_api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api.config">CHF_model_api.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api.dataBase">CHF_model_api.dataBase module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB"><code class="docutils literal notranslate"><span class="pre">MyDB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.AVAILABLE_DB"><code class="docutils literal notranslate"><span class="pre">MyDB.AVAILABLE_DB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.ISUnitsTransformation"><code class="docutils literal notranslate"><span class="pre">MyDB.ISUnitsTransformation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.extractSortFromPdf"><code class="docutils literal notranslate"><span class="pre">MyDB.extractSortFromPdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.extraction"><code class="docutils literal notranslate"><span class="pre">MyDB.extraction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.filtration"><code class="docutils literal notranslate"><span class="pre">MyDB.filtration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.getAvailableDataBases"><code class="docutils literal notranslate"><span class="pre">MyDB.getAvailableDataBases()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.getInterpFunction"><code class="docutils literal notranslate"><span class="pre">MyDB.getInterpFunction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.getLUTPerformances"><code class="docutils literal notranslate"><span class="pre">MyDB.getLUTPerformances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.interpolate"><code class="docutils literal notranslate"><span class="pre">MyDB.interpolate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.isCompatible"><code class="docutils literal notranslate"><span class="pre">MyDB.isCompatible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.loadData"><code class="docutils literal notranslate"><span class="pre">MyDB.loadData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.makeDictDatabase"><code class="docutils literal notranslate"><span class="pre">MyDB.makeDictDatabase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.dataBase.MyDB.normalizeData"><code class="docutils literal notranslate"><span class="pre">MyDB.normalizeData()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api.model">CHF_model_api.model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel"><code class="docutils literal notranslate"><span class="pre">MyModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.createNewModel"><code class="docutils literal notranslate"><span class="pre">MyModel.createNewModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.displayPerf"><code class="docutils literal notranslate"><span class="pre">MyModel.displayPerf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.init_callbacks"><code class="docutils literal notranslate"><span class="pre">MyModel.init_callbacks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.loadData"><code class="docutils literal notranslate"><span class="pre">MyModel.loadData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.loadMyModel"><code class="docutils literal notranslate"><span class="pre">MyModel.loadMyModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.lrScheduler"><code class="docutils literal notranslate"><span class="pre">MyModel.lrScheduler()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.makeRealPredictions"><code class="docutils literal notranslate"><span class="pre">MyModel.makeRealPredictions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.plotLoss"><code class="docutils literal notranslate"><span class="pre">MyModel.plotLoss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.plotResult"><code class="docutils literal notranslate"><span class="pre">MyModel.plotResult()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.save"><code class="docutils literal notranslate"><span class="pre">MyModel.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.saveResults"><code class="docutils literal notranslate"><span class="pre">MyModel.saveResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.train"><code class="docutils literal notranslate"><span class="pre">MyModel.train()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.MyModel.vizualize"><code class="docutils literal notranslate"><span class="pre">MyModel.vizualize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.model.batch_nrmse"><code class="docutils literal notranslate"><span class="pre">batch_nrmse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api.optimizer">CHF_model_api.optimizer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer"><code class="docutils literal notranslate"><span class="pre">MyOptimizer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.access_data_index_safe"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.access_data_index_safe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.make_archi_type"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.make_archi_type()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.make_around_archi"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.make_around_archi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.make_decreased_archi"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.make_decreased_archi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.make_increased_archi"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.make_increased_archi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.make_random_archi"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.make_random_archi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.objective"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.objective()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.opti_hparams_safe"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.opti_hparams_safe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.optimize_my_models"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.optimize_my_models()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.optimizer.MyOptimizer.train_and_report"><code class="docutils literal notranslate"><span class="pre">MyOptimizer.train_and_report()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api.tensorBoard">CHF_model_api.tensorBoard module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard"><code class="docutils literal notranslate"><span class="pre">MyTensorboard</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.add_hparams"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.add_hparams()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.add_model"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.add_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.add_saved_model"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.add_saved_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.copy_log"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.copy_log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.copy_logs"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.copy_logs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.init_models"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.init_models()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.load_tb"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.load_tb()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.log_Hparams"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.log_Hparams()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.log_Hparams_range"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.log_Hparams_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.make_Hparams_range"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.make_Hparams_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tensorBoard.MyTensorboard.set_up_directories"><code class="docutils literal notranslate"><span class="pre">MyTensorboard.set_up_directories()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api.tools">CHF_model_api.tools module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.RemoveDirectoryContent"><code class="docutils literal notranslate"><span class="pre">RemoveDirectoryContent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.eraseHparams"><code class="docutils literal notranslate"><span class="pre">eraseHparams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.getHparamsSavedModel"><code class="docutils literal notranslate"><span class="pre">getHparamsSavedModel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.myMsle"><code class="docutils literal notranslate"><span class="pre">myMsle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.nrmse"><code class="docutils literal notranslate"><span class="pre">nrmse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.plotResults"><code class="docutils literal notranslate"><span class="pre">plotResults()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.remove_backups"><code class="docutils literal notranslate"><span class="pre">remove_backups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.reset_directories"><code class="docutils literal notranslate"><span class="pre">reset_directories()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.saveHparams"><code class="docutils literal notranslate"><span class="pre">saveHparams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.stdMP"><code class="docutils literal notranslate"><span class="pre">stdMP()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.testTools"><code class="docutils literal notranslate"><span class="pre">testTools()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.utilsNnConfig"><code class="docutils literal notranslate"><span class="pre">utilsNnConfig()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CHF_model_api.html#CHF_model_api.tools.visualizeNn"><code class="docutils literal notranslate"><span class="pre">visualizeNn()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html#module-CHF_model_api">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">NN for CHF prediction</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CHF_model_api</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CHF_model_api.html">CHF_model_api package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to NN for CHF prediction’s documentation!</a></li>
+      <li>Next: <a href="CHF_model_api.html" title="next chapter">CHF_model_api package</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dumont Jules.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
